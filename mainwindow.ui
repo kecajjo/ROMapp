@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>812</width>
+    <height>599</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>811</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="MapTab">
+     <attribute name="title">
+      <string>Map</string>
+     </attribute>
+     <widget class="QPushButton" name="InputPort">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>500</y>
+        <width>781</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>InputPort</string>
+      </property>
+     </widget>
+     <widget class="Map" name="MapW" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>781</width>
+        <height>401</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="DataTable" name="DataTableW">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>410</y>
+        <width>781</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="PlotTab">
+     <attribute name="title">
+      <string>Plots</string>
+     </attribute>
+     <widget class="QCustomPlot" name="PWMPlot" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>-1</y>
+        <width>811</width>
+        <height>141</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCustomPlot" name="EncoderPlot" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>139</y>
+        <width>811</width>
+        <height>141</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCustomPlot" name="CompassPlot" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>409</y>
+        <width>811</width>
+        <height>131</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCustomPlot" name="GyroPlot" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>279</y>
+        <width>811</width>
+        <height>131</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Map</class>
+   <extends>QWidget</extends>
+   <header>map.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>DataTable</class>
+   <extends>QFrame</extends>
+   <header>datatable.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
