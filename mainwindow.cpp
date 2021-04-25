@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow){
 
     ui->setupUi(this);
+    this->setWindowTitle("ROMapp");
 
     GenerateExampleData();
     ReadExampleData();
@@ -119,24 +120,49 @@ void MainWindow::GraphParamInit(){
 }
 
 void MainWindow::GraphParamInitPWM(){
+    ui->PWMPlot->plotLayout()->insertRow(0);
+    ui->PWMPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->PWMPlot, "PWM", QFont("sans", 10, QFont::Bold)));
+    ui->PWMPlot->xAxis->setVisible(false);
+    ui->PWMPlot->yAxis->setLabel("Value [%]");
     ui->PWMPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
     ui->PWMPlot->yAxis->setRange(0, 100);
     ui->PWMPlot->graph(0)->setPen(QColor(Qt::red));//line color
     ui->PWMPlot->graph(0)->setBrush(QBrush(QColor(200, 50, 50, 80)));//fill color
+    ui->PWMPlot->graph(0)->setName("Right motor");//needed for legend
     ui->PWMPlot->graph(1)->setPen(QColor(Qt::green));//line color
     ui->PWMPlot->graph(1)->setBrush(QBrush(QColor(50, 200, 50, 80)));//fill color
+    ui->PWMPlot->graph(1)->setName("Left motor");//needed for legend
+    ui->PWMPlot->legend->setVisible(true);
+    ui->PWMPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignLeft);
+    QFont LegendFont = font();
+    LegendFont.setPointSize(8);
+    ui->PWMPlot->legend->setFont(LegendFont);
 }
 
 void MainWindow::GraphParamInitEncoder(){
+    ui->EncoderPlot->plotLayout()->insertRow(0);
+    ui->EncoderPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->EncoderPlot, "Wheel speed", QFont("sans", 10, QFont::Bold)));
+    ui->EncoderPlot->xAxis->setVisible(false);
+    ui->EncoderPlot->yAxis->setLabel("Encoder ticks");
     ui->EncoderPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
     ui->EncoderPlot->yAxis->setRange(0, 3);
     ui->EncoderPlot->graph(0)->setPen(QColor(Qt::red));//line color
     ui->EncoderPlot->graph(0)->setBrush(QBrush(QColor(200, 50, 50, 80)));//fill color
+    ui->EncoderPlot->graph(0)->setName("Right wheel");
     ui->EncoderPlot->graph(1)->setPen(QColor(Qt::green));//line color
     ui->EncoderPlot->graph(1)->setBrush(QBrush(QColor(50, 200, 50, 80)));//fill color
+    ui->EncoderPlot->graph(1)->setName("Left wheel");
+    ui->EncoderPlot->legend->setVisible(true);
+    ui->EncoderPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom|Qt::AlignLeft);
+    QFont LegendFont = font();
+    LegendFont.setPointSize(8);
+    ui->EncoderPlot->legend->setFont(LegendFont);
 }
 
 void MainWindow::GraphParamInitGyro(){
+    ui->GyroPlot->plotLayout()->insertRow(0);
+    ui->GyroPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->GyroPlot, "Gyroscope", QFont("sans", 10, QFont::Bold)));
+    ui->GyroPlot->xAxis->setVisible(false);
     ui->GyroPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
     ui->GyroPlot->yAxis->setRange(0, 120);
     ui->GyroPlot->graph(0)->setPen(QColor(Qt::blue));//line color
@@ -144,6 +170,9 @@ void MainWindow::GraphParamInitGyro(){
 }
 
 void MainWindow::GraphParamInitCompass(){
+    ui->CompassPlot->plotLayout()->insertRow(0);
+    ui->CompassPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->CompassPlot, "Compass", QFont("sans", 10, QFont::Bold)));
+    ui->CompassPlot->xAxis->setVisible(false);
     ui->CompassPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
     ui->CompassPlot->yAxis->setRange(0, 360);
     ui->CompassPlot->graph(0)->setPen(QColor(Qt::blue));//line color
