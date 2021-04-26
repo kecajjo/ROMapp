@@ -4,7 +4,10 @@
 #include <QVector>
 
 #define SAMPLES 100
-
+/*!
+  * \brief DataForPlot
+  * struct cointaining QVectors for plotting PWM, Encoders, Gyro and Compass values
+  */
 typedef struct DataForPlot{
     QVector<double> XAxisGraphVal;
     QVector<double> PWMA;
@@ -14,7 +17,15 @@ typedef struct DataForPlot{
     QVector<double> Gyro;
     QVector<double> Compass;
 
+    /*!
+     * \brief DataForPlot
+     * initializes all QVector of struct with SAMPLES elements
+     */
     DataForPlot();
+    /*!
+      * \brief ~DataForPlot
+      * clears all QVectors inisde struct
+      */
     ~DataForPlot();
 } DataForPlot;
 
