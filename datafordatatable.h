@@ -24,7 +24,13 @@ public:
      * \brief SetPosition
      * \param tab - 2element array, it values will be copied to Position array
      */
-    void SetPosition(double const *tab);
+    void SetPosition(double const *Tab);
+    /*!
+     * \brief SetPosition
+     * \param X - new value of Position[0]
+     * \param Y - new value of Position[1]
+     */
+    void SetPosition(double const &X, double const &Y);
     /*!
      * \brief GetPtrPosition
      * \return pointer to 2element array containing values of Position
@@ -35,18 +41,18 @@ public:
      * \param index - index of Position, must be 0 or 1
      * \return value of Position[index]
      */
-    double GetPosition (int index) const {return Position[index];}
+    double GetPosition (int Index) const {return Position[Index];}
     /*!
      * \brief SetPWM
      * \param tab - 2element array, it values will be copied to PWM array
      */
-    void SetPWM(double const *tab);
+    void SetPWM(double const *Tab);
     /*!
      * \brief SetPWM
      * \param A - new value of PWM[0]
      * \param B - new value of PWM[1]
      */
-    void SetPWM(double const A, double const B);
+    void SetPWM(double const &A, double const &B);
     /*!
      * \brief GetPtrPWM
      * \return pointer to 2element array containing values of PWM
@@ -57,18 +63,18 @@ public:
      * \param index - index of PWM, must be 0 or 1
      * \return value of PWM[index]
      */
-    double GetPWM(int index) const {return PWM[index];}
+    double GetPWM(int Index) const {return PWM[Index];}
     /*!
      * \brief SetEncoder
      * \param tab - 2element array, it values will be copied to Encoder array
      */
-    void SetEncoder(double const *tab);
+    void SetEncoder(double const *Tab);
     /*!
      * \brief SetEncoder
      * \param A - new value of encoder[0]
      * \param B - new value of encoder[1]
      */
-    void SetEncoder(double const A, double const B);
+    void SetEncoder(double const &A, double const &B);
     /*!
      * \brief GetPtrEncoder
      * \return pointer to 2element array containing values of Encoders
@@ -79,12 +85,12 @@ public:
      * \param index - index of encoder, must be 0 or 1
      * \return value of encoder[index]
      */
-    double GetEncoder(int index) const {return Encoder[index];}
+    double GetEncoder(int Index) const {return Encoder[Index];}
     /*!
      * \brief SetGyro sets Gyro value
      * \param val - new Gyro value
      */
-    void SetGyro(double const val){Gyro = val;}
+    void SetGyro(double const &Val){Gyro = Val;}
     /*!
      * \brief GetGyro
      * \return Gyro value
@@ -94,30 +100,13 @@ public:
      * \brief SetCompass sets Compass value
      * \param val - new Compass value
      */
-    void SetCompass(double const val){Compass = val;}
+    void SetCompass(double const &Val){Compass = Val;}
     /*!
      * \brief GetCompass
      * \return Compass value
      */
     double GetCompass() const {return Compass;}
-    void operator = (DataForDataTable const dat);
-    /*!
-     * \brief CalcPosition
-     * \param PrevPosition - 2 element array, previous position, needed to determine current position
-     *
-     * Calculates position basing on sensors values
-     * Updates current Position
-     */
-    void CalcPosition(double const *PrevPosition);
-    /*!
-     * \brief CalcPosition
-     * \param X - previous position X axis, needed to determine current position
-     * \param Y - previous position Y axis, needed to determine current position
-     *
-     * Calculates position basing on sensors values
-     * Updates current Position
-     */
-    void CalcPosition(double const X, double const Y);
+    void operator = (DataForDataTable const Dat);
 };
 
 
@@ -130,6 +119,6 @@ public:
  * NOTE: after reading DataForDataTable it is necesarry to use CalcPosition function
  * to update Positions value
 */
-std::istream& operator >> (std::istream& Stream, DataForDataTable &data);
+std::istream& operator >> (std::istream& Stream, DataForDataTable &Data);
 
 #endif // DATAFORDATATABLE_H

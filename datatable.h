@@ -45,11 +45,11 @@ public:
      *
      * NOTE: doesnt refresh display
      */
-    void UpdateData(DataForDataTable const dat);
+    void UpdateData(DataForDataTable const Dat);
 
 private:
     Ui::DataTable *ui;
-    DataForDataTable *data;
+    DataForDataTable *Data;
 };
 
 #endif // DATATABLE_H

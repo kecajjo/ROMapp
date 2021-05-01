@@ -8,25 +8,28 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("ROMapp");
 
-    GenerateExampleData();
-    ReadExampleData();
-    CurrDataSample = 0;
-
     DatPlot = new DataForPlot;
     PlotInit();
 
     DataForDataTable data;
     ui->DataTableW->UpdateDisplay(data);
 
-    Tim = new QTimer;
-    connect(Tim, &QTimer::timeout, this, &MainWindow::RefreshDataTab);
-    connect(Tim, &QTimer::timeout, this, &MainWindow::RefreshPlots);
-    Tim->start(500);//Timer interrupt every 0.5sec
+    TimTable = new QTimer;
+    TimPlot = new QTimer;
+    TimReadData = new QTimer;
+    connect(TimTable, &QTimer::timeout, this, &MainWindow::RefreshDataTab);
+    connect(TimPlot, &QTimer::timeout, this, &MainWindow::RefreshPlots);
+    connect(TimReadData, &QTimer::timeout, this, &MainWindow::RefreshData);
+    TimTable->start(1000);//Timer interrupt every 1sec
+    TimPlot->start(50);//Timer interrupt every 0.1sec
+    TimReadData->start(50);//Timer interrupt every 0.1sec
 }
 
 MainWindow::~MainWindow(){
     delete DatPlot;
-    delete Tim;
+    delete TimTable;
+    delete TimPlot;
+    delete TimReadData;
     delete ui;
 }
 
@@ -43,25 +46,8 @@ void MainWindow::PlotInit(){
     RefreshPlotDisplay();//replots all graphs
 }
 
-void MainWindow::ReadExampleData(){
-    std::ifstream F("ExDat.txt");
-    DataForDataTable Dat;
-    int i = 0;
-    while(F >> Dat){
-        if(i==0){
-            Dat.CalcPosition(0,0);
-        } else{
-            Dat.CalcPosition(ExampleData[i-1].GetPtrPosition());
-        }
-        ExampleData.push_back(Dat);
-        ++i;
-    }
-    F.close();
-}
-
 void MainWindow::RefreshDataTab(){
-    CurrDataSample = (CurrDataSample+1)%ExampleData.size();
-    ui->DataTableW->UpdateDisplay(ExampleData[CurrDataSample]);
+    ui->DataTableW->UpdateDisplay(CurrData);
 }
 
 void MainWindow::RefreshPlots(){
@@ -72,17 +58,21 @@ void MainWindow::RefreshPlots(){
 
 void MainWindow::RefreshPlotData(){
     DatPlot->PWMA.removeFirst();
-    DatPlot->PWMA.push_back(ExampleData[CurrDataSample].GetPWM(0));
+    DatPlot->PWMA.push_back(CurrData.GetPWM(0));
     DatPlot->PWMB.removeFirst();
-    DatPlot->PWMB.push_back(ExampleData[CurrDataSample].GetPWM(1));
+    DatPlot->PWMB.push_back(CurrData.GetPWM(1));
     DatPlot->EncoderA.removeFirst();
-    DatPlot->EncoderA.push_back(ExampleData[CurrDataSample].GetEncoder(0));
+    DatPlot->EncoderA.push_back(CurrData.GetEncoder(0));
     DatPlot->EncoderB.removeFirst();
-    DatPlot->EncoderB.push_back(ExampleData[CurrDataSample].GetEncoder(1));
+    DatPlot->EncoderB.push_back(CurrData.GetEncoder(1));
     DatPlot->Gyro.removeFirst();
-    DatPlot->Gyro.push_back(ExampleData[CurrDataSample].GetGyro());
+    DatPlot->Gyro.push_back(CurrData.GetGyro());
     DatPlot->Compass.removeFirst();
-    DatPlot->Compass.push_back(ExampleData[CurrDataSample].GetCompass());
+    DatPlot->Compass.push_back(CurrData.GetCompass());
+}
+
+void MainWindow::RefreshData(){
+    CurrData = ThreadComm->ReadData();
 }
 
 void MainWindow::RefreshPlotDisplay(){
@@ -178,29 +168,3 @@ void MainWindow::GraphParamInitCompass(){
     ui->CompassPlot->graph(0)->setPen(QColor(Qt::blue));//line color
     ui->CompassPlot->graph(0)->setBrush(QBrush(QColor(50, 50, 200, 80)));//fill color
 }
-
-
-void GenerateExampleData(){
-    std::ofstream F("ExDat.txt");
-    srand (time(NULL));
-    double tab[6];
-    for(int i=0;i<100;i++){
-        tab[0] = fRand(0.01, 99.8);
-        tab[1] = fRand(0.01, 99.8);
-        tab[2] = fRand(0.01, 2.03);
-        tab[3] = fRand(0.01, 2.03);
-        tab[4] = fRand(0.01, 119.8);
-        tab[5] = fRand(0.01, 359.8);
-        for(int j=0;j<6;j++){
-            F << tab[j] << " ";
-        }
-        F << std::endl;
-    }
-    F.close();
-}
-double fRand(double fMin, double fMax)
-{
-    double f = (double)rand() / RAND_MAX;
-    return fMin + f * (fMax - fMin);
-}
-

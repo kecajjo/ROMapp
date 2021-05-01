@@ -7,10 +7,7 @@
 #include <iostream>
 #include "datatable.h"
 #include "dataforplot.h"
-
-#include <vector>
-#include <fstream>
-#include <cstdlib>
+#include "communication.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,11 +29,8 @@ public:
      * initializes Graphs and displays them
      */
     void PlotInit();
-    /*!
-     * \brief ReadExampleData
-     * function for testing program only
-     */
-    void ReadExampleData();
+
+    void SetThreadCommunication(Communication *Comm){ThreadComm = Comm;}
 
 private slots:
     /*!
@@ -66,13 +60,20 @@ private slots:
      */
     void RefreshPlotData();
 
+    /*!
+     * \brief RefreshData
+     * Reads Data sent by another thread
+     */
+    void RefreshData();
+
 private:
     Ui::MainWindow *ui;
-    QTimer *Tim;
+    QTimer *TimTable;
+    QTimer *TimPlot;
+    QTimer *TimReadData;
     DataForPlot *DatPlot;
-
-    std::vector<DataForDataTable> ExampleData;
-    int CurrDataSample;
+    DataForDataTable CurrData;
+    Communication *ThreadComm;
 
     /*!
      * \brief RefreshPlotDisplay
@@ -139,16 +140,5 @@ private:
      */
     void GraphParamInitCompass();
 };
-
-/*!
- * \brief GenerateExampleData
- * function for testing program only
- */
-void GenerateExampleData();
-/*!
- * \brief fRand
- * function for testing program only
- */
-double fRand(double fMin, double fMax);
 
 #endif // MAINWINDOW_H

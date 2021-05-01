@@ -10,60 +10,55 @@ DataForDataTable::DataForDataTable(){
     }
 }
 
-void DataForDataTable::SetPosition(const double *tab){
-    Position[0] = tab[0];
-    Position[1] = tab[1];
+void DataForDataTable::SetPosition(const double *Tab){
+    Position[0] = Tab[0];
+    Position[1] = Tab[1];
 }
 
-void DataForDataTable::SetPWM(const double *tab){
-    PWM[0] = tab[0];
-    PWM[1] = tab[1];
+void DataForDataTable::SetPosition(double const &X, double const &Y){
+    Position[0] = X;
+    Position[1] = Y;
 }
 
-void DataForDataTable::SetPWM(double const A, double const B){
+void DataForDataTable::SetPWM(const double *Tab){
+    PWM[0] = Tab[0];
+    PWM[1] = Tab[1];
+}
+
+void DataForDataTable::SetPWM(double const &A, double const &B){
     PWM[0] = A;
     PWM[1] = B;
 }
 
-void DataForDataTable::SetEncoder(const double *tab){
-    Encoder[0] = tab[0];
-    Encoder[1] = tab[1];
+void DataForDataTable::SetEncoder(const double *Tab){
+    Encoder[0] = Tab[0];
+    Encoder[1] = Tab[1];
 }
 
-void DataForDataTable::SetEncoder(double const A, double const B){
+void DataForDataTable::SetEncoder(double const &A, double const &B){
     Encoder[0] = A;
     Encoder[1] = B;
 }
 
-void DataForDataTable::operator = (DataForDataTable const dat){
+void DataForDataTable::operator = (DataForDataTable const Dat){
     for(int i=0;i<2;i++){
-        Position[i] = dat.GetPosition(i);
-        PWM[i] = dat.GetPWM(i);
-        Encoder[i] = dat.GetEncoder(i);
+        Position[i] = Dat.GetPosition(i);
+        PWM[i] = Dat.GetPWM(i);
+        Encoder[i] = Dat.GetEncoder(i);
     }
-    Gyro = dat.GetGyro();
-    Compass = dat.GetCompass();
+    Gyro = Dat.GetGyro();
+    Compass = Dat.GetCompass();
 }
 
-void DataForDataTable::CalcPosition(double const *PrevPosition){
-    Position[0] = Encoder[0] + PrevPosition[0];
-    Position[1] = Encoder[1] + PrevPosition[1];
-}
-
-void DataForDataTable::CalcPosition(double const X, double const Y){
-    Position[0] = Encoder[0] + X;
-    Position[1] = Encoder[1] + Y;
-}
-
-std::istream& operator >> (std::istream& Stream, DataForDataTable &data){
+std::istream& operator >> (std::istream& Stream, DataForDataTable &Data){
     double tab[2];
     Stream >> tab[0] >> tab[1];
-    data.SetPWM(tab);
+    Data.SetPWM(tab);
     Stream >> tab[0] >> tab[1];
-    data.SetEncoder(tab);
+    Data.SetEncoder(tab);
     Stream >> tab[0] >> tab[1];
-    data.SetGyro(tab[0]);
-    data.SetCompass(tab[1]);
+    Data.SetGyro(tab[0]);
+    Data.SetCompass(tab[1]);
 
     return Stream;
 }

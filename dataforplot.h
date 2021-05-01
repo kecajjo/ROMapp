@@ -3,7 +3,7 @@
 
 #include <QVector>
 
-#define SAMPLES 100
+#define SAMPLES 400
 /*!
   * \brief DataForPlot
   * struct cointaining QVectors for plotting PWM, Encoders, Gyro and Compass values

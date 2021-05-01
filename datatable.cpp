@@ -5,7 +5,7 @@ DataTable::DataTable(QWidget *parent) :
     QFrame(parent),
     ui(new Ui::DataTable){
 
-    data = new DataForDataTable;
+    Data = new DataForDataTable;
 
     ui->setupUi(this);
     ui->PositionName->setText("Position:");
@@ -20,32 +20,32 @@ DataTable::DataTable(QWidget *parent) :
 DataTable::~DataTable()
 {
     delete ui;
-    delete data;
+    delete Data;
 }
 
 void DataTable::UpdateDisplay(){
-    ui->PositionX->setText("X: " + QString::number(data->GetPosition(0)));
-    ui->PositionY->setText("Y: " + QString::number(data->GetPosition(1)));
-    ui->PWMA->setText("A: " + QString::number(data->GetPWM(0)));
-    ui->PWMB->setText("B: " + QString::number(data->GetPWM(1)));
-    ui->EncoderA->setText("A: " + QString::number(data->GetEncoder(0)));
-    ui->EncoderB->setText("B: " + QString::number(data->GetEncoder(1)));
-    ui->GyroData->setText(QString::number(data->GetGyro()));
-    ui->CompassData->setText(QString::number(data->GetCompass()));
+    ui->PositionX->setText("X: " + QString::number(Data->GetPosition(0)));
+    ui->PositionY->setText("Y: " + QString::number(Data->GetPosition(1)));
+    ui->PWMA->setText("A: " + QString::number(Data->GetPWM(0)));
+    ui->PWMB->setText("B: " + QString::number(Data->GetPWM(1)));
+    ui->EncoderA->setText("A: " + QString::number(Data->GetEncoder(0)));
+    ui->EncoderB->setText("B: " + QString::number(Data->GetEncoder(1)));
+    ui->GyroData->setText(QString::number(Data->GetGyro()));
+    ui->CompassData->setText(QString::number(Data->GetCompass()));
 }
 
 void DataTable::UpdateDisplay(DataForDataTable const Dat){
-    *data = Dat;
-    ui->PositionX->setText("X: " + QString::number(data->GetPosition(0)));
-    ui->PositionY->setText("Y: " + QString::number(data->GetPosition(1)));
-    ui->PWMA->setText("A: " + QString::number(data->GetPWM(0)));
-    ui->PWMB->setText("B: " + QString::number(data->GetPWM(1)));
-    ui->EncoderA->setText("A: " + QString::number(data->GetEncoder(0)));
-    ui->EncoderB->setText("B: " + QString::number(data->GetEncoder(1)));
-    ui->GyroData->setText(QString::number(data->GetGyro()));
-    ui->CompassData->setText(QString::number(data->GetCompass()));
+    *Data = Dat;
+    ui->PositionX->setText("X: " + QString::number(Data->GetPosition(0)));
+    ui->PositionY->setText("Y: " + QString::number(Data->GetPosition(1)));
+    ui->PWMA->setText("A: " + QString::number(Data->GetPWM(0)));
+    ui->PWMB->setText("B: " + QString::number(Data->GetPWM(1)));
+    ui->EncoderA->setText("A: " + QString::number(Data->GetEncoder(0)));
+    ui->EncoderB->setText("B: " + QString::number(Data->GetEncoder(1)));
+    ui->GyroData->setText(QString::number(Data->GetGyro()));
+    ui->CompassData->setText(QString::number(Data->GetCompass()));
 }
 
 void DataTable::UpdateData(DataForDataTable const dat){
-    *data = dat;
+    *Data = dat;
 }
