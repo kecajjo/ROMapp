@@ -14,6 +14,7 @@ SOURCES += \
     dataforplot.cpp \
     datatable.cpp \
     datatransform.cpp \
+    graphs.cpp \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     datafromstm.h \
     datatable.h \
     datatransform.h \
+    graphs.h \
     mainwindow.h \
     map.h \
     programlogiceventloop.h \
@@ -34,6 +36,7 @@ HEADERS += \
 
 FORMS += \
     datatable.ui \
+    graphs.ui \
     mainwindow.ui \
     map.ui
 

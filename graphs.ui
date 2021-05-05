@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Graphs</class>
+ <widget class="QWidget" name="Graphs">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>811</width>
+    <height>524</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QCustomPlot" name="PWMPlot" native="true">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>811</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="EncoderPlot" native="true">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>129</y>
+     <width>811</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="GyroPlot" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>260</y>
+     <width>811</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="CompassPlot" native="true">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>389</y>
+     <width>811</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

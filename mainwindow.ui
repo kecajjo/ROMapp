@@ -30,26 +30,13 @@
      <attribute name="title">
       <string>Map</string>
      </attribute>
-     <widget class="QPushButton" name="InputPort">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>500</y>
-        <width>781</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>InputPort</string>
-      </property>
-     </widget>
      <widget class="Map" name="MapW" native="true">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>0</y>
         <width>781</width>
-        <height>401</height>
+        <height>371</height>
        </rect>
       </property>
      </widget>
@@ -57,7 +44,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>410</y>
+        <y>370</y>
         <width>781</width>
         <height>91</height>
        </rect>
@@ -69,48 +56,80 @@
        <enum>QFrame::Raised</enum>
       </property>
      </widget>
+     <widget class="QComboBox" name="DevicesBox">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>490</y>
+        <width>221</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="BluetoothLabel">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>460</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>BluetoothLabel</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ScanButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>490</y>
+        <width>89</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Scan</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ConnectButton">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>480</y>
+        <width>89</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="DisconnectButton">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>510</y>
+        <width>89</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Disconnect</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="PlotTab">
      <attribute name="title">
       <string>Plots</string>
      </attribute>
-     <widget class="QCustomPlot" name="PWMPlot" native="true">
+     <widget class="Graphs" name="GraphsW" native="true">
       <property name="geometry">
        <rect>
         <x>-1</x>
         <y>-1</y>
         <width>811</width>
-        <height>141</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QCustomPlot" name="EncoderPlot" native="true">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>139</y>
-        <width>811</width>
-        <height>141</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QCustomPlot" name="CompassPlot" native="true">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>409</y>
-        <width>811</width>
-        <height>131</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QCustomPlot" name="GyroPlot" native="true">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>279</y>
-        <width>811</width>
-        <height>131</height>
+        <height>541</height>
        </rect>
       </property>
      </widget>
@@ -133,9 +152,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>QCustomPlot</class>
+   <class>Graphs</class>
    <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
+   <header>graphs.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

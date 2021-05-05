@@ -29,6 +29,9 @@ DataForDataTable Communication::ReadData(){
 }
 
 void Communication::ConnectToDeviceCommand(int LstIdx){
+    //ignore command if devices list is empty or devices==nullptr
+    if(Devices == nullptr) return;
+    if(Devices->isEmpty()) return;
     std::lock_guard<std::mutex> Grd(BluetoothMutex);
     *DeviceToConnect = Devices->at(LstIdx);
     ConnectionError = false;
@@ -48,7 +51,7 @@ void Communication::ScanFinished(QList<QBluetoothDeviceInfo> const &DevLst){
     *Devices = DevLst;
 }
 
-QBluetoothDeviceInfo* Communication::IsConnectCommand(){
+QBluetoothDeviceInfo* Communication::DeviceToConnectTo(){
     if(ConnectCommand == true){
         std::lock_guard<std::mutex> Grd(BluetoothMutex);
         ConnectCommand = false;

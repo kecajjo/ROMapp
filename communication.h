@@ -56,13 +56,15 @@ public:
     void Connected(){ConnectionError = false; BluetoothConnected = true;}
     void ConnectionFailed(){ConnectionError = true;}
     void ClearScanCommand(){ScanCommand = false; ScanComplete = false;}
+    void ClearDisconnectCommand(){BluetoothDisconnect = false;}
 
     /*
      * Information received by Logic
     */
     bool IsScanCommand() const {return ScanCommand;}
     bool IsDisconnectCommand() const {return BluetoothDisconnect;}
-    QBluetoothDeviceInfo* IsConnectCommand();
+    bool IsConnectCommand() const {return ConnectCommand;}
+    QBluetoothDeviceInfo* DeviceToConnectTo();
 
     void ClearConnectionError(){ConnectionError = false;}
     void Exit(){ExitCommand = true;}
