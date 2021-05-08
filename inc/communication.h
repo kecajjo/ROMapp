@@ -19,8 +19,8 @@ class Communication{
     bool BluetoothDisconnect;
     bool ScanCommand;
     bool ScanComplete;
+    bool DevLstChanged;
     mutable std::mutex BluetoothMutex;
-    bool ExitCommand;
 
 public:
     Communication();
@@ -38,6 +38,7 @@ public:
     void ConnectToDeviceCommand(int LstIdx);
     void ScanForDevicesCommand();
     void DisconnectCommand(){BluetoothDisconnect = true; ConnectionError=false;}
+    void ClearDevLstChanged(){DevLstChanged = false;}
 
     /*
      * Information received by GUI
@@ -46,12 +47,15 @@ public:
     bool IsScanComplete() const {return ScanComplete;}
     bool IsConnectionError() const {return ConnectionError;}
     bool IsBluetoothConnected() const {return BluetoothConnected;}
-    const QList<QBluetoothDeviceInfo>& GetDevices() const {return *Devices;}
+    bool IsDevLstChanged() const {return DevLstChanged;}
+    QList<QBluetoothDeviceInfo>* GetDevices() const {return Devices;}
 
     /*
      * Information set by logic
     */
-    void ScanFinished(QList<QBluetoothDeviceInfo> const &DevLst);
+    void NewDevLst(QList<QBluetoothDeviceInfo>* Lst){Devices = Lst;}
+    void NewDevice(){DevLstChanged = true;}
+    void ScanFinished(QList<QBluetoothDeviceInfo> *DevLst);
     void Disconnected(){BluetoothConnected = false; BluetoothDisconnect = false;}
     void Connected(){ConnectionError = false; BluetoothConnected = true;}
     void ConnectionFailed(){ConnectionError = true;}
@@ -67,8 +71,6 @@ public:
     QBluetoothDeviceInfo* DeviceToConnectTo();
 
     void ClearConnectionError(){ConnectionError = false;}
-    void Exit(){ExitCommand = true;}
-    bool IsExitCommand() const {return ExitCommand;}
 };
 
 #endif // COMMUNICATION_H

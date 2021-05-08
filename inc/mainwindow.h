@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include <QVector>
 #include <QCloseEvent>
+#include <QList>
+#include <QtBluetooth/QBluetoothDeviceInfo>
 #include <iostream>
 #include "datatable.h"
 #include "dataforplot.h"
@@ -45,23 +46,26 @@ private slots:
      */
     void RefreshData();
 
-    void closeEvent(QCloseEvent* Event);
-
     void ScanButtonClicked(){ThreadComm->ScanForDevicesCommand();}
 
     void ConnectButtonClicked();
 
     void DisconnectButtonClicked(){ThreadComm->DisconnectCommand();}
 
+    void RefreshDevBox();
+
 private:
-    Ui::MainWindow *ui;
+    void InitDevBox();
+
+private:
+    Ui::MainWindow *Ui;
     QTimer *TimTable;
     QTimer *TimPlot;
     QTimer *TimReadData;
+    QTimer *TimDevBox;
     DataForPlot *DatPlot;
     DataForDataTable CurrData;
     Communication *ThreadComm;
-
 };
 
 #endif // MAINWINDOW_H

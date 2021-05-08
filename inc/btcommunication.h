@@ -13,11 +13,17 @@ public:
     void Disconnect(){Socket->close();}
 private slots:
     void AddDeviceToList(const QBluetoothDeviceInfo &NewDevice);
-    void FinishedScan();
-    void ServiceConnected();
-    void ServiceDisconnected();
     void ReadData();
     void DiscoveryError(QBluetoothDeviceDiscoveryAgent::Error Err);
+    void ScanEnded();
+
+signals:
+    void ScanFinished(QList<QBluetoothDeviceInfo>*);
+    void ServiceDisconnected();
+    void ServiceConnected();
+    void ConnectionError();
+    void NewDevice(QBluetoothDeviceInfo);
+    void NewDevLst(QList<QBluetoothDeviceInfo>*);
 
 private:
     QBluetoothDeviceDiscoveryAgent *DiscoveryAgent;

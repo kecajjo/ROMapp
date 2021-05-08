@@ -8,14 +8,15 @@ BTCommunication::BTCommunication(QObject *parent)
     Socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
     Devices = new QList<QBluetoothDeviceInfo>;
 
-    connect(Socket, SIGNAL(disconnected()), this, SLOT(ServiceDisconnected()));
+    connect(Socket, SIGNAL(disconnected()), this, SIGNAL(ServiceDisconnected()));
     connect(DiscoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(AddDeviceToList(QBluetoothDeviceInfo)));
-    connect(DiscoveryAgent, SIGNAL(finished()), this, SLOT(FinishedScan()));
-    connect(Socket, SIGNAL(connected()), this, SLOT(ServiceConnected()));
+    connect(DiscoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SIGNAL(NewDevice(QBluetoothDeviceInfo)));
+    connect(DiscoveryAgent, SIGNAL(finished()), this, SLOT(ScanEnded()));
+    connect(Socket, SIGNAL(connected()), this, SIGNAL(ServiceConnected()));
     connect(Socket, SIGNAL(readyRead()), this, SLOT(ReadData()));
     connect(DiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)), this, SLOT(DiscoveryError(QBluetoothDeviceDiscoveryAgent::Error)));
+    connect(Socket, SIGNAL(error(QBluetoothSocket::SocketError)), this, SIGNAL(ConnectionError()));
     Socket->close();
-    DiscoveryAgent->start();
 }
 
 BTCommunication::~BTCommunication(){
@@ -26,44 +27,30 @@ BTCommunication::~BTCommunication(){
 }
 
 void BTCommunication::StartScan(){
-    qDebug() << "Scanning\n";
     Devices->clear();
+    emit NewDevLst(Devices);
     DiscoveryAgent->setInquiryType(QBluetoothDeviceDiscoveryAgent::GeneralUnlimitedInquiry);
     DiscoveryAgent->start();
 }
 
-void BTCommunication::AddDeviceToList(const QBluetoothDeviceInfo &NewDevice){
-    qDebug() << "Device found: " << NewDevice.name();
-    Devices->append(NewDevice);
+void BTCommunication::AddDeviceToList(const QBluetoothDeviceInfo &NewDev){
+    Devices->append(NewDev);
 }
 
 void BTCommunication::ConnectToDevice(const QBluetoothDeviceInfo &Device){
     Socket->disconnectFromService();
-    qDebug() << "Connecting to device " << Device.name() << " adress: " << Device.address();
     ConnectedDeviceAddress = Device.address().toString();
     Socket->connectToService(QBluetoothAddress(ConnectedDeviceAddress), QBluetoothUuid(QBluetoothUuid::SerialPort), QIODevice::ReadWrite);
 }
 
-void BTCommunication::FinishedScan(){
-    qDebug() << "Scan finished";
-    for(int i=0;i<Devices->length();i++){
-        qDebug() << "Device " << i <<" name: " << Devices->at(i).name() << " adress: " << Devices->at(i).address();
-    }
-}
-
-void BTCommunication::ServiceConnected(){
-    qDebug() << "Connected";
-}
-void BTCommunication::ServiceDisconnected(){
-    qDebug() << "Disconnected";
+void BTCommunication::ScanEnded(){
+    emit ScanFinished(Devices);
 }
 
 void BTCommunication::ReadData(){
     char Data[50];
     Socket->readLine(Data,50);
-    qDebug() << Data;
 }
 
 void BTCommunication::DiscoveryError(QBluetoothDeviceDiscoveryAgent::Error Err){
-    qDebug() << Err;
 }

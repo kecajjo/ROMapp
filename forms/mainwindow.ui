@@ -65,6 +65,9 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="maxVisibleItems">
+       <number>5</number>
+      </property>
      </widget>
      <widget class="QLabel" name="BluetoothLabel">
       <property name="geometry">

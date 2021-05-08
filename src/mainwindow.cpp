@@ -3,28 +3,35 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow){
+    , Ui(new Ui::MainWindow){
 
-    ui->setupUi(this);
+    Ui->setupUi(this);
     this->setWindowTitle("ROMapp");
 
     DatPlot = new DataForPlot;
-    ui->GraphsW->PlotInit(DatPlot);
+    Ui->GraphsW->PlotInit(DatPlot);
     DataForDataTable Data;
-    ui->DataTableW->UpdateDisplay(Data);
+    Ui->DataTableW->UpdateDisplay(Data);
+    Ui->DevicesBox->setInsertPolicy(QComboBox::InsertAtBottom);
 
     TimTable = new QTimer;
     TimPlot = new QTimer;
     TimReadData = new QTimer;
+    TimDevBox = new QTimer;
+
+    InitDevBox();
+
     connect(TimTable, &QTimer::timeout, this, &MainWindow::RefreshDataTab);
     connect(TimPlot, &QTimer::timeout, this, &MainWindow::RefreshPlots);
     connect(TimReadData, &QTimer::timeout, this, &MainWindow::RefreshData);
-    connect(ui->ScanButton, &QAbstractButton::clicked, this, &MainWindow::ScanButtonClicked);
-    connect(ui->ConnectButton, &QAbstractButton::clicked, this, &MainWindow::ConnectButtonClicked);
-    connect(ui->DisconnectButton, &QAbstractButton::clicked, this, &MainWindow::DisconnectButtonClicked);
-    TimTable->start(1000);//Timer interrupt every 1sec
-    TimPlot->start(50);//Timer interrupt every 0.1sec
-    TimReadData->start(50);//Timer interrupt every 0.1sec
+    connect(TimDevBox, &QTimer::timeout, this, &MainWindow::RefreshDevBox);
+    connect(Ui->ScanButton, &QAbstractButton::clicked, this, &MainWindow::ScanButtonClicked);
+    connect(Ui->ConnectButton, &QAbstractButton::clicked, this, &MainWindow::ConnectButtonClicked);
+    connect(Ui->DisconnectButton, &QAbstractButton::clicked, this, &MainWindow::DisconnectButtonClicked);
+    TimTable->start(1000);//Timer event every 1sec
+    TimPlot->start(50);//Timer event every 0.05sec
+    TimReadData->start(50);//Timer event every 0.05sec
+    TimDevBox->start(1000);//Timer event every 1sec
 }
 
 MainWindow::~MainWindow(){
@@ -32,15 +39,15 @@ MainWindow::~MainWindow(){
     delete TimTable;
     delete TimPlot;
     delete TimReadData;
-    delete ui;
+    delete Ui;
 }
 
 void MainWindow::RefreshDataTab(){
-    ui->DataTableW->UpdateDisplay(CurrData);
+    Ui->DataTableW->UpdateDisplay(CurrData);
 }
 
 void MainWindow::RefreshPlots(){
-    ui->GraphsW->RefreshPlots(CurrData);
+    Ui->GraphsW->RefreshPlots(CurrData);
 }
 
 void MainWindow::RefreshData(){
@@ -48,10 +55,28 @@ void MainWindow::RefreshData(){
 }
 
 void MainWindow::ConnectButtonClicked(){
-    ThreadComm->ConnectToDeviceCommand(0);//for now constant value later it will be retrived from combo box
+    int Idx = Ui->DevicesBox->currentIndex();
+    ThreadComm->ConnectToDeviceCommand(Idx);
 }
 
-void MainWindow::closeEvent(QCloseEvent* Event){
-    ThreadComm->Exit();
-    Event->accept();
+void MainWindow::RefreshDevBox(){
+    if(ThreadComm->IsDevLstChanged()){
+        ThreadComm->ClearDevLstChanged();
+        QList<QString> DevBox;
+        Ui->DevicesBox->clear();
+        QList<QBluetoothDeviceInfo> *DevInf = ThreadComm->GetDevices();
+        if(DevInf != nullptr){
+            if(DevInf->length() != 0){
+                QList<QBluetoothDeviceInfo>::iterator Iter;
+                for(Iter=DevInf->begin(); Iter!=DevInf->end(); Iter++){
+                    DevBox.append(QString(Iter->name()));
+                }
+                Ui->DevicesBox->addItems(DevBox);
+            }
+        }
+    }
+}
+
+void MainWindow::InitDevBox(){
+    Ui->DevicesBox->setMaxVisibleItems(5);
 }

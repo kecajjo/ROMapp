@@ -7,13 +7,14 @@ Communication::Communication(){
     BluetoothConnected = false;
     ScanCommand = false;
     ScanComplete = false;
-    ExitCommand = false;
     ConnectionError = false;
+    DevLstChanged = false;
     Devices = nullptr;
-    DeviceToConnect = nullptr;
+    DeviceToConnect = new QBluetoothDeviceInfo;
 }
 
 Communication::~Communication(){
+    delete DeviceToConnect;
 }
 
 void Communication::SendData(DataForDataTable DataToSend){
@@ -33,7 +34,7 @@ void Communication::ConnectToDeviceCommand(int LstIdx){
     if(Devices == nullptr) return;
     if(Devices->isEmpty()) return;
     std::lock_guard<std::mutex> Grd(BluetoothMutex);
-    *DeviceToConnect = Devices->at(LstIdx);
+    *DeviceToConnect = Devices->value(LstIdx);
     ConnectionError = false;
     ConnectCommand = true;
 }
@@ -45,10 +46,11 @@ void Communication::ScanForDevicesCommand(){
     ScanCommand = true;
 }
 
-void Communication::ScanFinished(QList<QBluetoothDeviceInfo> const &DevLst){
+void Communication::ScanFinished(QList<QBluetoothDeviceInfo> *DevLst){
     std::lock_guard<std::mutex> Grd(BluetoothMutex);
+    DevLstChanged = true;
     ScanComplete = true;
-    *Devices = DevLst;
+    Devices = DevLst;
 }
 
 QBluetoothDeviceInfo* Communication::DeviceToConnectTo(){

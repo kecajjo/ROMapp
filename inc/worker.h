@@ -16,17 +16,24 @@ public:
 
 public slots:
     void Start();
+
 private slots:
     void CheckEvents();
+    void ScanFinished(QList<QBluetoothDeviceInfo>* DevLst){Comm->ScanFinished(DevLst);}
+    void DeviceFound(){Comm->NewDevice();}
+    void Connected(){Comm->Connected();}
+    void Disconnected(){Comm->Disconnected();}
+    void ConnectionError();
+    void NewDevLst(QList<QBluetoothDeviceInfo>*);
+
+signals:
+    void StartSig();
 
 private:
     Communication *Comm;
     DataTransform *ConvertedData;
     BTCommunication *BT;
     QTimer *Tim;
-
-signals:
-    void StartSig();
 };
 
 #endif // WORKER_H
