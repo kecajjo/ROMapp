@@ -1,26 +1,32 @@
 #include "mainwindow.h"
 #include "communication.h"
-#include "programlogiceventloop.h"
+#include "worker.h"
 
 #include <QApplication>
-#include <thread>
+#include <QThread>
 
 int main(int argc, char *argv[]){
 
     Communication Comm;
-
+    Worker *Wrk = new Worker;
+    Wrk->SetCommunication(&Comm);
     QApplication App(argc, argv);
     MainWindow *Window = new MainWindow();
     Window->SetThreadCommunication(&Comm);
-    Window->show();
-
     // thread does logic part of the program and communicates with microcontroller
-    std::thread MyThread(ProgramLogicEventLoop, &Comm);
-
+    QThread *LogicThread = new QThread;
+    Wrk->moveToThread(LogicThread);
+    Wrk->SendStartSig();
+    QAbstractEventDispatcher *Dispatch = LogicThread->eventDispatcher();
+    qDebug() << Dispatch;
+    LogicThread->start();
+    Dispatch = LogicThread->eventDispatcher();
+    qDebug() << Dispatch;
+    Window->show();
     // value to be returned
     int RetVal = App.exec();
 
-    MyThread.join();
+    //LogicThread->wait();
 
     return RetVal;
 }
