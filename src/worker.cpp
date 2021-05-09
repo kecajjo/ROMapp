@@ -15,6 +15,9 @@ Worker::~Worker(){
     if(BT != nullptr){
         delete BT;
     }
+    if(Tim != nullptr){
+        delete Tim;
+    }
 }
 
 void Worker::Start(){
@@ -28,19 +31,13 @@ void Worker::Start(){
     connect(BT, SIGNAL(ServiceConnected()), this, SLOT(Disconnected()));
     connect(BT, SIGNAL(ConnectionError()), this, SLOT(ConnectionError()));
     connect(BT, SIGNAL(NewDevLst(QList<QBluetoothDeviceInfo>*)), this, SLOT(NewDevLst(QList<QBluetoothDeviceInfo>*)));
+    connect(BT, SIGNAL(NewMessage(QByteArray*)), this, SLOT(ReceiveMessage(QByteArray*)));
 }
 
 void Worker::CheckEvents(){
-    DataFromSTM Test;
     QBluetoothDeviceInfo *DevInfo;
-    bool NewDataFromBT = true;
-    ConvertedData->ReadExampleData();
 
     // Bluetooth received events
-    if(NewDataFromBT == true){
-        ConvertedData->CalculateData(Test);
-        Comm->SendData(ConvertedData->GetData());
-    }
     if(Comm->IsScanCommand()){
         Comm->ClearScanCommand();
         BT->StartScan();
@@ -62,6 +59,11 @@ void Worker::ConnectionError(){
     Comm->ConnectionFailed();
 }
 
-void Worker::NewDevLst(QList<QBluetoothDeviceInfo>* Lst){
+void Worker::NewDevLst(QList<QBluetoothDeviceInfo> *Lst){
     Comm->NewDevLst(Lst);
+}
+
+void Worker::ReceiveMessage(QByteArray *RawData){
+    ConvertedData->CalculateData(RawData);
+    Comm->SendData(ConvertedData->GetData());
 }

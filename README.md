@@ -17,12 +17,14 @@ Program uses bluetooth to receive information from the robot. User can scan for 
 Project was written using [open source version of QT framework](https://www.qt.io/download-open-source) and [QCustomPlot](https://www.qcustomplot.com).
 
 ## Frame
-* 2bytes <uint16_t> PWM of right motor
-* 2bytes <uint16_t> PWM of left motor
-* 2bytes <int16_t> speed and direction of right motor
-* 2bytes <int16_t> speed and direction of left motor
-* 2bytes <int16_t> gyroscope data
-* 4bytes <float> compass data
+Little-endian byte order
+* 1byte \<uint8_t> option (currently only one 0xAA - sending sensor data)
+* 2bytes \<uint16_t> PWM of right motor
+* 2bytes \<uint16_t> PWM of left motor
+* 2bytes \<int16_t> speed and direction of right motor
+* 2bytes \<int16_t> speed and direction of left motor
+* 2bytes \<int16_t> gyroscope data
+* 4bytes \<float> compass data
 * CRC (not implemented yet)
 
 ## License

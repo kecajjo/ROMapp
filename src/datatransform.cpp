@@ -1,39 +1,65 @@
 #include "datatransform.h"
 
 DataTransform::DataTransform(){
-    GenerateExampleData();
-    ReadExampleData();
-    CurrDataSample = 0;
 }
 
-void DataTransform::ReadExampleData(){
-    std::ifstream F("ExDat.txt");
-    DataForDataTable Dat;
-    int i = 0;
-    while(F >> Dat){
-        if(i==0){
-            PrevPos[0] = 0;
-            PrevPos[1] = 0;
+void DataTransform::CalculateData(QByteArray *RawData){
+
+    if(RawData->length() != 14) return;
+
+    Uint8ToFloat RawToCompass;
+    Uint8ToUint RawToPWMA, RawToPWMB;
+    Uint8ToInt RawToEncoderA, RawToEncoderB, RawToGyro;
+
+    int LE = 1;
+    if(*(char *)&LE == 1){//if Little-Endian
+        for(int i=0;i<2;i++){
+            RawToPWMA.Uint8[i] = (*RawData)[i];
+            RawToPWMB.Uint8[i] = (*RawData)[i+2];
+            RawToEncoderA.Uint8[i] = (*RawData)[i+4];
+            RawToEncoderB.Uint8[i] = (*RawData)[i+6];
+            RawToGyro.Uint8[i] = (*RawData)[i+8];
         }
-        CurrData = Dat;
-        ExampleData.push_back(CurrData);
-        ++i;
+        for(int i=0;i<4;i++){
+            RawToCompass.Uint8[i] = (*RawData)[i+10];
+        }
+    }else{//Big-Endian
+        for(int i=0;i<2;i++){
+            RawToPWMA.Uint8[i] = (*RawData)[1-i];
+            RawToPWMB.Uint8[i] = (*RawData)[3-i];
+            RawToEncoderA.Uint8[i] = (*RawData)[5-i];
+            RawToEncoderB.Uint8[i] = (*RawData)[7-i];
+            RawToGyro.Uint8[i] = (*RawData)[9-i];
+        }
+        for(int i=0;i<4;i++){
+            RawToCompass.Uint8[i] = (*RawData)[13-i];
+        }
     }
-    F.close();
-}
 
-void DataTransform::CalculateData(DataFromSTM DataToConvert){
-    CurrData = ExampleData[CurrDataSample];
-    CurrDataSample = (CurrDataSample+1)%SAMPLES;
+    float PWMA, PWMB, EncoderA, EncoderB, Gyro, Compass;
+
+    PWMA = (double)(RawToPWMA.Uint)/MAX_PWM;
+    PWMB = (double)(RawToPWMB.Uint)/MAX_PWM;
+    EncoderA = double(RawToEncoderA.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION;
+    EncoderB = double(RawToEncoderB.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION;
+    Gyro = (double)(RawToGyro.I)*GYRO_RANGE/MAX_GYRO;
+    Compass = RawToCompass.F*180/M_PI;
+
+    CurrData.SetPWM(PWMA, PWMB);
+    CurrData.SetEncoder(EncoderA, EncoderB);
+    CurrData.SetGyro(Gyro);
+    CurrData.SetCompass(Compass);
     CalcPosition();
     PrevPos[0] = CurrData.GetPosition(0);
     PrevPos[1] = CurrData.GetPosition(1);
-    PrevAngle = 0;
+    PrevAngle = Compass;
 }
 
 void DataTransform::CalcPosition(){
-    double X = CurrData.GetEncoder(0) + PrevPos[0];
-    double Y = CurrData.GetEncoder(1) + PrevPos[1];
+    //0 degree angle facing north, Y axis facing north, X axis facing east
+    //Position in centimeters
+    double X = sin(CurrData.GetCompass()*M_PI/180)*(CurrData.GetEncoder(0)+CurrData.GetEncoder(1))/20 + PrevPos[0];
+    double Y = cos(CurrData.GetCompass()*M_PI/180)*(CurrData.GetEncoder(0)+CurrData.GetEncoder(1))/20 + PrevPos[1];
     CurrData.SetPosition(X, Y);
 }
 /*
@@ -42,26 +68,3 @@ void DataTransform::CalcPosition(double const &X, double const &Y, double const 
     Position[1] = Encoder[1] + Y;
 }
 */
-void GenerateExampleData(){
-    std::ofstream F("ExDat.txt");
-    srand (time(NULL));
-    double tab[6];
-    for(int i=0;i<100;i++){
-        tab[0] = fRand(0.01, 99.8);
-        tab[1] = fRand(0.01, 99.8);
-        tab[2] = fRand(0.01, 2.03);
-        tab[3] = fRand(0.01, 2.03);
-        tab[4] = fRand(0.01, 119.8);
-        tab[5] = fRand(0.01, 359.8);
-        for(int j=0;j<6;j++){
-            F << tab[j] << " ";
-        }
-        F << std::endl;
-    }
-    F.close();
-}
-double fRand(double fMin, double fMax)
-{
-    double f = (double)rand() / RAND_MAX;
-    return fMin + f * (fMax - fMin);
-}

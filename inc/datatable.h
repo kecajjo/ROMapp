@@ -32,7 +32,7 @@ public:
 
     /*!
      * \brief UpdateDisplay
-     * \param Dat - data to be displayed
+     * \param[in] Dat - data to be displayed
      * Displays in a table data Dat
      * Updates data stored in a class
      */
@@ -40,7 +40,7 @@ public:
 
     /*!
      * \brief UpdateData
-     * \param dat - data sample which can be displayed in a table
+     * \param[in] dat - data sample which can be displayed in a table
      * Updates data stored in a class
      *
      * NOTE: doesnt refresh display

@@ -22,13 +22,13 @@ public:
     //~DataForDataTable();
     /*!
      * \brief SetPosition
-     * \param tab - 2element array, it values will be copied to Position array
+     * \param[in] tab - 2element array, it values will be copied to Position array
      */
     void SetPosition(double const *Tab);
     /*!
      * \brief SetPosition
-     * \param X - new value of Position[0]
-     * \param Y - new value of Position[1]
+     * \param[in] X - new value of Position[0]
+     * \param[in] Y - new value of Position[1]
      */
     void SetPosition(double const &X, double const &Y);
     /*!
@@ -38,7 +38,7 @@ public:
     const double* GetPtrPosition() const {return Position;}
     /*!
      * \brief GetPosition
-     * \param index - index of Position, must be 0 or 1
+     * \param[in] index - index of Position, must be 0 or 1
      * \return value of Position[index]
      */
     double GetPosition (int Index) const {return Position[Index];}
@@ -49,8 +49,8 @@ public:
     void SetPWM(double const *Tab);
     /*!
      * \brief SetPWM
-     * \param A - new value of PWM[0]
-     * \param B - new value of PWM[1]
+     * \param[in] A - new value of PWM[0]
+     * \param[in] B - new value of PWM[1]
      */
     void SetPWM(double const &A, double const &B);
     /*!
@@ -60,19 +60,19 @@ public:
     const double* GetPtrPWM() const {return PWM;}
     /*!
      * \brief GetPWM
-     * \param index - index of PWM, must be 0 or 1
+     * \param[in] index - index of PWM, must be 0 or 1
      * \return value of PWM[index]
      */
     double GetPWM(int Index) const {return PWM[Index];}
     /*!
      * \brief SetEncoder
-     * \param tab - 2element array, it values will be copied to Encoder array
+     * \param[in] tab - 2element array, it values will be copied to Encoder array
      */
     void SetEncoder(double const *Tab);
     /*!
      * \brief SetEncoder
-     * \param A - new value of encoder[0]
-     * \param B - new value of encoder[1]
+     * \param[in] A - new value of encoder[0]
+     * \param[in] B - new value of encoder[1]
      */
     void SetEncoder(double const &A, double const &B);
     /*!
@@ -82,13 +82,13 @@ public:
     const double* GetPtrEncoder() const {return Encoder;}
     /*!
      * \brief GetEncoder
-     * \param index - index of encoder, must be 0 or 1
+     * \param[in] index - index of encoder, must be 0 or 1
      * \return value of encoder[index]
      */
     double GetEncoder(int Index) const {return Encoder[Index];}
     /*!
      * \brief SetGyro sets Gyro value
-     * \param val - new Gyro value
+     * \param[in] val - new Gyro value
      */
     void SetGyro(double const &Val){Gyro = Val;}
     /*!
@@ -98,7 +98,7 @@ public:
     double GetGyro() const {return Gyro;}
     /*!
      * \brief SetCompass sets Compass value
-     * \param val - new Compass value
+     * \param[in] val - new Compass value
      */
     void SetCompass(double const &Val){Compass = Val;}
     /*!
@@ -106,14 +106,20 @@ public:
      * \return Compass value
      */
     double GetCompass() const {return Compass;}
+
+    /*!
+     * \brief operator =
+     * \param[in] Dat - value we assign
+     * Overloaded operator =, assigns Dat to this datatable
+     */
     void operator = (DataForDataTable const Dat);
 };
 
 
 /*!
  * \brief operator >>
- * \param Stream - referance to stream from which we read data
- * \param data - reference to data which we want to update
+ * \param[in/out] Stream - referance to stream from which we read data
+ * \param[in] data - reference to data which we want to update
  * \return reference to the stream from which we read data
  *
  * NOTE: after reading DataForDataTable it is necesarry to use CalcPosition function

@@ -22,10 +22,6 @@ typedef struct DataForPlot{
      * initializes all QVector of struct with SAMPLES elements
      */
     DataForPlot();
-    /*!
-      * \brief ~DataForPlot
-      * clears all QVectors inisde struct
-      */
     ~DataForPlot();
 } DataForPlot;
 

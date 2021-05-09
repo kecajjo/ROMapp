@@ -3,8 +3,8 @@
 
 Graphs::Graphs(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Graphs)
-{
+    ui(new Ui::Graphs){
+
     ui->setupUi(this);
 }
 

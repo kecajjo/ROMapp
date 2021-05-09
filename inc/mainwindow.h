@@ -17,16 +17,24 @@ QT_END_NAMESPACE
 
 /*!
  * \brief The MainWindow class
- * TODO
+ * Takes care of application window
  */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    /*!
+     * \brief MainWindow
+     * \param[in] parent - parent QWidget
+     * initializes signal-slot connections, initializes all widgets
+     */
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    /*!
+     * \brief SetThreadCommunication
+     * \param[in] Comm - object used to communicate with worker thread
+     */
     void SetThreadCommunication(Communication *Comm){ThreadComm = Comm;}
 
 private slots:
@@ -45,16 +53,32 @@ private slots:
      * Reads Data sent by another thread
      */
     void RefreshData();
-
+    /*!
+     * \brief ScanButtonClicked
+     * Gives scan command to worker thread
+     */
     void ScanButtonClicked(){ThreadComm->ScanForDevicesCommand();}
-
+    /*!
+     * \brief ConnectButtonClicked
+     * Gives connect command to worker thread
+     */
     void ConnectButtonClicked();
-
+    /*!
+     * \brief DisconnectButtonClicked
+     * Gives disconnect command to worker thread
+     */
     void DisconnectButtonClicked(){ThreadComm->DisconnectCommand();}
-
+    /*!
+     * \brief RefreshDevBox
+     * If devices list changed, refreshes data stored in devices box
+     */
     void RefreshDevBox();
 
 private:
+    /*!
+     * \brief InitDevBox
+     *  Initializes devices box visual parameters
+     */
     void InitDevBox();
 
 private:

@@ -7,6 +7,8 @@ BTCommunication::BTCommunication(QObject *parent)
     LocDev = new QBluetoothLocalDevice;
     Socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
     Devices = new QList<QBluetoothDeviceInfo>;
+    Message = new QByteArray;
+    StoredData = new QByteArray;
 
     connect(Socket, SIGNAL(disconnected()), this, SIGNAL(ServiceDisconnected()));
     connect(DiscoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(AddDeviceToList(QBluetoothDeviceInfo)));
@@ -14,7 +16,6 @@ BTCommunication::BTCommunication(QObject *parent)
     connect(DiscoveryAgent, SIGNAL(finished()), this, SLOT(ScanEnded()));
     connect(Socket, SIGNAL(connected()), this, SIGNAL(ServiceConnected()));
     connect(Socket, SIGNAL(readyRead()), this, SLOT(ReadData()));
-    connect(DiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)), this, SLOT(DiscoveryError(QBluetoothDeviceDiscoveryAgent::Error)));
     connect(Socket, SIGNAL(error(QBluetoothSocket::SocketError)), this, SIGNAL(ConnectionError()));
     Socket->close();
 }
@@ -24,6 +25,8 @@ BTCommunication::~BTCommunication(){
     delete DiscoveryAgent;
     delete Socket;
     delete Devices;
+    delete Message;
+    delete StoredData;
 }
 
 void BTCommunication::StartScan(){
@@ -48,9 +51,18 @@ void BTCommunication::ScanEnded(){
 }
 
 void BTCommunication::ReadData(){
-    char Data[50];
-    Socket->readLine(Data,50);
-}
-
-void BTCommunication::DiscoveryError(QBluetoothDeviceDiscoveryAgent::Error Err){
+    *StoredData += Socket->read(FRAME_LEN);
+    int StartIdx = StoredData->indexOf(OPTION_DATA);
+    if(StartIdx == -1) return;
+    if(StoredData->length() >= StartIdx + FRAME_LEN){ //if full message is ready
+        Message->clear();
+        QByteArray::iterator Iter = StoredData->begin();
+        Iter+=StartIdx;
+        for(int i=0;i<FRAME_LEN-1;i++){
+            Iter++; //starting to append from 1st data byte (skipping addr byte)
+            Message->append(*Iter);
+        }
+        emit NewMessage(Message);
+        StoredData->remove(0,StartIdx+FRAME_LEN);
+    }
 }

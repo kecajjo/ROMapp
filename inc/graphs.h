@@ -10,36 +10,40 @@ namespace Ui {
 class Graphs;
 }
 
+/*!
+ * \brief The Graphs class
+ * Class responsible for graphs widget
+ */
 class Graphs : public QWidget
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Graphs
+     * \param[in] parent - parent QWidget
+     */
     explicit Graphs(QWidget *parent = nullptr);
     ~Graphs();
 
 public slots:
     /*!
      * \brief PlotInit
-     * initializes Graphs and displays them
+     * \param[in] DatPlot - data which will store data to be plotted
+     * Initializes graphs and displays them, initializes time axis data
      */
     void PlotInit(DataForPlot *DatPlot);
     /*!
-     * \brief RefreshPlotData
-     * shifts all plotted data by 1 sample left
-     *
-     * shifts data to be plotted left by removing first sample
-     * adds new sample as last element in QVector
-     */
-    void RefreshPlotData(DataForDataTable CurrData);/*!
      * \brief SetDataToPlot
-     * sets which vector from DataForPlot will be plotted on which graph
+     * \param[in] DatPlot - data used to plot graphs
+     * Sets which vector from DataForPlot will be plotted on which graph
      *
      * NOTE: this function needs to be used before refreshing display if data has changed
      */
     void SetDataToPlot(DataForPlot *DatPlot);
     /*!
      * \brief RefreshPlots
-     * replots all graphs basing on changed data
+     * \param[in] CurrData - data to be added to graphs
+     * Replots all graphs basing on changed data
      */
     void RefreshPlots(DataForDataTable CurrData);
     /*!
@@ -52,8 +56,15 @@ public slots:
     void RefreshPlotDisplay();
 
 private:
-    Ui::Graphs *ui;
-    DataForPlot *DatPlot;
+    /*!
+     * \brief RefreshPlotData
+     * \param[in] CurrData - new data to be added to graphs
+     * Shifts all plotted data by 1 sample left
+     *
+     * Shifts data to be plotted left by removing first sample
+     * adds new sample as last element in QVector
+     */
+    void RefreshPlotData(DataForDataTable CurrData);
     /*!
      * \brief GraphParamInit
      * Initializes graphs parameters such as titles, axes, legends
@@ -103,7 +114,7 @@ private:
     void GraphParamInitGyro();
     /*!
      * \brief GraphParamInitCompass
-     *  Initializes Compass graph visual parameters such as title, legend etc.
+     * Initializes Compass graph visual parameters such as title, legend etc.
      *
      * adds graph title
      * sets X axis invisible
@@ -111,6 +122,9 @@ private:
      * sets plot line color and fill
      */
     void GraphParamInitCompass();
+
+    Ui::Graphs *ui;
+    DataForPlot *DatPlot;
 
 };
 #endif // GRAPHS_H
