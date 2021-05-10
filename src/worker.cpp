@@ -23,12 +23,12 @@ Worker::~Worker(){
 void Worker::Start(){
     Tim = new QTimer;
     connect(Tim, &QTimer::timeout, this, &Worker::CheckEvents);
-    Tim->start(100);
+    Tim->start(50);
     ConvertedData = new DataTransform;
     BT = new BTCommunication;
     connect(BT, SIGNAL(NewDevice(QBluetoothDeviceInfo)), this, SLOT(DeviceFound()));
     connect(BT, SIGNAL(ServiceConnected()), this, SLOT(Connected()));
-    connect(BT, SIGNAL(ServiceConnected()), this, SLOT(Disconnected()));
+    connect(BT, SIGNAL(ServiceDisconnected()), this, SLOT(Disconnected()));
     connect(BT, SIGNAL(ConnectionError()), this, SLOT(ConnectionError()));
     connect(BT, SIGNAL(NewDevLst(QList<QBluetoothDeviceInfo>*)), this, SLOT(NewDevLst(QList<QBluetoothDeviceInfo>*)));
     connect(BT, SIGNAL(NewMessage(QByteArray*)), this, SLOT(ReceiveMessage(QByteArray*)));

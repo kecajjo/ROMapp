@@ -17,11 +17,12 @@ class DataTable : public QFrame
     Q_OBJECT
 
 public:
-    explicit DataTable(QWidget *parent = nullptr);
     /*!
-      * \brief ~DataTable
-      * frees memory allocated for ui and data
-      */
+     * \brief DataTable
+     * \param parent - parent QFrame
+     * Sets display parameters
+     */
+    explicit DataTable(QWidget *parent = nullptr);
     ~DataTable();
 
     /*!

@@ -123,7 +123,7 @@ public:
     void NewDevice(){DevLstChanged = true;}
     /*!
      * \brief ScanFinished
-     * \param DevLst[in] - list containing found devices
+     * \param[in] DevLst - list containing found devices
      * Assigns devices list to DevLst and changes status of flags;
      */
     void ScanFinished(QList<QBluetoothDeviceInfo> *DevLst);

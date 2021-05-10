@@ -43,6 +43,7 @@ void BTCommunication::AddDeviceToList(const QBluetoothDeviceInfo &NewDev){
 void BTCommunication::ConnectToDevice(const QBluetoothDeviceInfo &Device){
     Socket->disconnectFromService();
     ConnectedDeviceAddress = Device.address().toString();
+    //Socket->connectToService(QBluetoothAddress(ConnectedDeviceAddress), QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB")), QIODevice::ReadWrite);
     Socket->connectToService(QBluetoothAddress(ConnectedDeviceAddress), QBluetoothUuid(QBluetoothUuid::SerialPort), QIODevice::ReadWrite);
 }
 

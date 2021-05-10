@@ -6,6 +6,11 @@
 #include "btcommunication.h"
 #include "datatransform.h"
 
+
+/*!
+ * \brief The Worker class
+ * Class designed to be executed in worker thread
+ */
 class Worker : public QObject{
     Q_OBJECT
 public:
@@ -73,7 +78,7 @@ private slots:
     void NewDevLst(QList<QBluetoothDeviceInfo> *Lst);
     /*!
      * \brief ReceiveMessage
-     * \param RawData - data received from bluetooth
+     * \param[in] RawData - data received from bluetooth
      * Converts data received from bluetooth and sends it to main thread
      */
     void ReceiveMessage(QByteArray *RawData);
