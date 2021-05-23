@@ -11,6 +11,7 @@ Communication::Communication(){
     DevLstChanged = false;
     Devices = nullptr;
     DeviceToConnect = new QBluetoothDeviceInfo;
+    EndCommand = false;
 }
 
 Communication::~Communication(){

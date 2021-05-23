@@ -10,6 +10,8 @@
 #include "datatable.h"
 #include "dataforplot.h"
 #include "communication.h"
+#include "bluetoothwidget.h"
+#include <memory>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,7 +37,7 @@ public:
      * \brief SetThreadCommunication
      * \param[in] Comm - object used to communicate with worker thread
      */
-    void SetThreadCommunication(Communication *Comm){ThreadComm = Comm;}
+    void SetThreadCommunication(Communication *Comm);
 
 private slots:
     /*!
@@ -54,48 +56,32 @@ private slots:
      */
     void RefreshData();
     /*!
-     * \brief ScanButtonClicked
-     * Gives scan command to worker thread
-     */
-    void ScanButtonClicked(){ThreadComm->ScanForDevicesCommand();}
-    /*!
-     * \brief ConnectButtonClicked
-     * Gives connect command to worker thread
-     */
-    void ConnectButtonClicked();
-    /*!
-     * \brief DisconnectButtonClicked
-     * Gives disconnect command to worker thread
-     */
-    void DisconnectButtonClicked(){ThreadComm->DisconnectCommand();}
-    /*!
-     * \brief RefreshDevBox
-     * If devices list changed, refreshes data stored in devices box
-     */
-    void RefreshDevBox();
-    /*!
      * \brief RefreshMap
      * Refreshes map by adding a point to the path
     */
     void RefreshMap();
-
-private:
     /*!
-     * \brief InitDevBox
-     *  Initializes devices box visual parameters
+     * \brief OpenBluetoothWindow
+     * Opens window that allows to manage connection
      */
-    void InitDevBox();
+    void OpenConnectionWindow();
+    /*!
+     * \brief closeEvent
+     * \param Event - event which trigerred function
+     * Reimplemented closing function, closes all windows that were open
+     */
+    void closeEvent(QCloseEvent *Event);
 
 private:
     Ui::MainWindow *Ui;
     QTimer *TimTable;
     QTimer *TimPlot;
     QTimer *TimReadData;
-    QTimer *TimDevBox;
     QTimer *TimMap;
     DataForPlot *DatPlot;
     DataForDataTable CurrData;
     Communication *ThreadComm;
+
 };
 
 #endif // MAINWINDOW_H

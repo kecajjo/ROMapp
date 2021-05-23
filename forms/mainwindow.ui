@@ -36,7 +36,7 @@
         <x>10</x>
         <y>0</y>
         <width>781</width>
-        <height>371</height>
+        <height>431</height>
        </rect>
       </property>
      </widget>
@@ -44,7 +44,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>370</y>
+        <y>430</y>
         <width>781</width>
         <height>91</height>
        </rect>
@@ -54,71 +54,6 @@
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="DevicesBox">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>490</y>
-        <width>221</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="maxVisibleItems">
-       <number>5</number>
-      </property>
-     </widget>
-     <widget class="QLabel" name="BluetoothLabel">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>460</y>
-        <width>171</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>BluetoothLabel</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="ScanButton">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>490</y>
-        <width>89</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Scan</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="ConnectButton">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>480</y>
-        <width>89</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Connect</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="DisconnectButton">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>510</y>
-        <width>89</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Disconnect</string>
       </property>
      </widget>
     </widget>
@@ -140,6 +75,45 @@
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="MenuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>812</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="MenuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="ActionConnection"/>
+    <addaction name="separator"/>
+    <addaction name="ActionExit"/>
+   </widget>
+   <addaction name="MenuOptions"/>
+  </widget>
+  <action name="actionConnection">
+   <property name="text">
+    <string>Connection</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="ActionConnection">
+   <property name="text">
+    <string>Connection</string>
+   </property>
+  </action>
+  <action name="ActionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

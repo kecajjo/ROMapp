@@ -21,7 +21,6 @@ int main(int argc, char *argv[]){
     Window->show();
     // value to be returned
     int RetVal = App.exec();
-    WorkerThread->exit();
     WorkerThread->wait();
     delete Window;
     delete WorkerThread;

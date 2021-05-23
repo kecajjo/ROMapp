@@ -25,6 +25,7 @@ class Communication{
     bool ScanComplete;
     bool DevLstChanged;
     mutable std::mutex BluetoothMutex;
+    bool EndCommand;
 
 public:
     /*!
@@ -183,6 +184,18 @@ public:
      * Resets connection error flag
      */
     void ClearConnectionError(){ConnectionError = false;}
+
+    /*!
+     * \brief End
+     * Sets EndCommand to true
+     */
+    void End(){EndCommand = true;}
+    /*!
+     * \brief IsEndCommand
+     * \return true if EndCommand is set, false otherwise
+     * Allows to check if end command was sent
+     */
+    bool IsEndCommand() const {return EndCommand;}
 };
 
 #endif // COMMUNICATION_H

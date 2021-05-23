@@ -34,19 +34,15 @@ void Map::AddPoint(double X, double Y){
     LastYPos = Y;
 }
 
-void Map::Draw(QPainter *Painter){
-    QPen Pen(Qt::blue, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-    Painter->setPen(Pen);
-    Painter->drawPath(Path);
-    Pen.setColor(Qt::red);
-    Pen.setWidth(20);
-    Painter->setPen(Pen);
-    Painter->drawPoint(LastPoint);
-}
-
 void Map::paintEvent(QPaintEvent *){
     QPainter Painter(this);
-    this->Draw(&Painter);
+    QPen Pen(Qt::blue, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    Painter.setPen(Pen);
+    Painter.drawPath(Path);
+    Pen.setColor(Qt::red);
+    Pen.setWidth(20);
+    Painter.setPen(Pen);
+    Painter.drawPoint(LastPoint);
 }
 
 void Map::CallRepaint(){

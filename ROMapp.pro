@@ -8,7 +8,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    forms/bluetoothwidget.cpp \
+    src/bluetoothwidget.cpp \
     src/btcommunication.cpp \
     src/communication.cpp \
     src/datafordatatable.cpp \
@@ -23,7 +23,7 @@ SOURCES += \
     src/worker.cpp
 
 HEADERS += \
-    forms/bluetoothwidget.h \
+    inc/bluetoothwidget.h \
     inc/btcommunication.h \
     inc/communication.h \
     inc/datafordatatable.h \

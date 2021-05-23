@@ -91,6 +91,7 @@ signals:
     void StartSig();
 
 private:
+public:
     Communication *Comm;
     DataTransform *ConvertedData;
     BTCommunication *BT;

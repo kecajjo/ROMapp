@@ -1,5 +1,6 @@
 #include "worker.h"
 #include "unistd.h"
+#include <QDebug>
 
 Worker::Worker(QObject *parent) : QObject(parent){
     Comm = nullptr;
@@ -9,14 +10,14 @@ Worker::Worker(QObject *parent) : QObject(parent){
 }
 
 Worker::~Worker(){
+    if(Tim != nullptr){
+        delete Tim;
+    }
     if(ConvertedData != nullptr){
         delete ConvertedData;
     }
     if(BT != nullptr){
         delete BT;
-    }
-    if(Tim != nullptr){
-        delete Tim;
     }
 }
 
@@ -36,6 +37,14 @@ void Worker::Start(){
 
 void Worker::CheckEvents(){
     QBluetoothDeviceInfo *DevInfo;
+
+    //is time to end
+    if(Comm->IsEndCommand()){
+        if(Tim != nullptr){
+            Tim->stop();
+            this->thread()->exit();
+        }
+    }
 
     // Bluetooth received events
     if(Comm->IsScanCommand()){
