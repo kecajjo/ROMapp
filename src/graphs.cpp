@@ -104,9 +104,9 @@ void Graphs::GraphParamInitEncoder(){
     ui->EncoderPlot->plotLayout()->insertRow(0);
     ui->EncoderPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->EncoderPlot, "Wheel speed", QFont("sans", 10, QFont::Bold)));
     ui->EncoderPlot->xAxis->setVisible(false);
-    ui->EncoderPlot->yAxis->setLabel("Encoder ticks");
+    ui->EncoderPlot->yAxis->setLabel("cm/s");
     ui->EncoderPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
-    ui->EncoderPlot->yAxis->setRange(0, 3);
+    ui->EncoderPlot->yAxis->setRange(0, 15);
     ui->EncoderPlot->graph(0)->setPen(QColor(Qt::red));//line color
     ui->EncoderPlot->graph(0)->setBrush(QBrush(QColor(200, 50, 50, 80)));//fill color
     ui->EncoderPlot->graph(0)->setName("Right wheel");
@@ -125,7 +125,7 @@ void Graphs::GraphParamInitGyro(){
     ui->GyroPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->GyroPlot, "Gyroscope", QFont("sans", 10, QFont::Bold)));
     ui->GyroPlot->xAxis->setVisible(false);
     ui->GyroPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
-    ui->GyroPlot->yAxis->setRange(0, 120);
+    ui->GyroPlot->yAxis->setRange(-250, 250);
     ui->GyroPlot->graph(0)->setPen(QColor(Qt::blue));//line color
     ui->GyroPlot->graph(0)->setBrush(QBrush(QColor(50, 50, 200, 80)));//fill color
 }
@@ -135,7 +135,7 @@ void Graphs::GraphParamInitCompass(){
     ui->CompassPlot->plotLayout()->addElement(0, 0, new QCPTextElement(ui->CompassPlot, "Compass", QFont("sans", 10, QFont::Bold)));
     ui->CompassPlot->xAxis->setVisible(false);
     ui->CompassPlot->xAxis->setRange(0, DatPlot->XAxisGraphVal[SAMPLES-1]);
-    ui->CompassPlot->yAxis->setRange(0, 360);
+    ui->CompassPlot->yAxis->setRange(-180, 180);
     ui->CompassPlot->graph(0)->setPen(QColor(Qt::blue));//line color
     ui->CompassPlot->graph(0)->setBrush(QBrush(QColor(50, 50, 200, 80)));//fill color
 }

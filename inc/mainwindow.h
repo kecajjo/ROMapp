@@ -73,6 +73,11 @@ private slots:
      * If devices list changed, refreshes data stored in devices box
      */
     void RefreshDevBox();
+    /*!
+     * \brief RefreshMap
+     * Refreshes map by adding a point to the path
+    */
+    void RefreshMap();
 
 private:
     /*!
@@ -87,6 +92,7 @@ private:
     QTimer *TimPlot;
     QTimer *TimReadData;
     QTimer *TimDevBox;
+    QTimer *TimMap;
     DataForPlot *DatPlot;
     DataForDataTable CurrData;
     Communication *ThreadComm;

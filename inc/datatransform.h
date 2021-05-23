@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <math.h>
 
-#define MAX_PWM 65535
+#define MAX_PWM 6400
 #define ENCODER_PER_ROTATION 11132//506*11*2
 #define WHEEL_DIAMETER 67//in millimeters
 #define MAX_GYRO 32767

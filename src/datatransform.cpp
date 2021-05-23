@@ -38,10 +38,10 @@ void DataTransform::CalculateData(QByteArray *RawData){
 
     float PWMA, PWMB, EncoderA, EncoderB, Gyro, Compass;
 
-    PWMA = (double)(RawToPWMA.Uint)/MAX_PWM;
-    PWMB = (double)(RawToPWMB.Uint)/MAX_PWM;
-    EncoderA = double(RawToEncoderA.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION;
-    EncoderB = double(RawToEncoderB.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION;
+    PWMA = (double)(RawToPWMA.Uint)/MAX_PWM*100;
+    PWMB = (double)(RawToPWMB.Uint)/MAX_PWM*100;
+    EncoderA = double(RawToEncoderA.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION*2;//20samples per second value in cm/sec
+    EncoderB = double(RawToEncoderB.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION*2;//20samples per second value in cm/sec
     Gyro = (double)(RawToGyro.I)*GYRO_RANGE/MAX_GYRO;
     Compass = RawToCompass.F*180/M_PI;
 

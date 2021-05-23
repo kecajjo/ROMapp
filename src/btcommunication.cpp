@@ -53,6 +53,7 @@ void BTCommunication::ScanEnded(){
 
 void BTCommunication::ReadData(){
     *StoredData += Socket->read(FRAME_LEN);
+    //int StartIdx = 0;
     int StartIdx = StoredData->indexOf(OPTION_DATA);
     if(StartIdx == -1) return;
     if(StoredData->length() >= StartIdx + FRAME_LEN){ //if full message is ready

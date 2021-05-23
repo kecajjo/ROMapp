@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     TimPlot = new QTimer;
     TimReadData = new QTimer;
     TimDevBox = new QTimer;
+    TimMap = new QTimer;
 
     InitDevBox();
 
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(TimPlot, &QTimer::timeout, this, &MainWindow::RefreshPlots);
     connect(TimReadData, &QTimer::timeout, this, &MainWindow::RefreshData);
     connect(TimDevBox, &QTimer::timeout, this, &MainWindow::RefreshDevBox);
+    connect(TimMap, &QTimer::timeout, this, &MainWindow::RefreshMap);
     connect(Ui->ScanButton, &QAbstractButton::clicked, this, &MainWindow::ScanButtonClicked);
     connect(Ui->ConnectButton, &QAbstractButton::clicked, this, &MainWindow::ConnectButtonClicked);
     connect(Ui->DisconnectButton, &QAbstractButton::clicked, this, &MainWindow::DisconnectButtonClicked);
@@ -32,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
     TimPlot->start(50);//Timer event every 0.05sec
     TimReadData->start(50);//Timer event every 0.05sec
     TimDevBox->start(1000);//Timer event every 1sec
+    TimMap->start(50);
+
 }
 
 MainWindow::~MainWindow(){
@@ -39,6 +43,8 @@ MainWindow::~MainWindow(){
     delete TimTable;
     delete TimPlot;
     delete TimReadData;
+    delete TimDevBox;
+    delete TimMap;
     delete Ui;
 }
 
@@ -75,6 +81,10 @@ void MainWindow::RefreshDevBox(){
             }
         }
     }
+}
+
+void MainWindow::RefreshMap(){
+    Ui->MapW->AddPoint(CurrData.GetPosition(0), CurrData.GetPosition(1));
 }
 
 void MainWindow::InitDevBox(){
