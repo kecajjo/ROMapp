@@ -44,13 +44,45 @@ public:
     void paintEvent(QPaintEvent *);
 
 private:
+    /*!
+     * \brief ui
+     * Contains information about UI
+     */
     Ui::Map *ui;
+    /*!
+     * \brief Path
+     * Path robot made while riding
+     */
     QPainterPath Path;
+    /*!
+     * \brief LastPoint
+     * Robot's current position
+     */
     QPoint LastPoint;
+    /*!
+     * \brief LastXPos
+     * Robot's current X coordinates
+     */
     double LastXPos;
+    /*!
+     * \brief LastYPos
+     * Robot's current Y coordinates
+     */
     double LastYPos;
+    /*!
+     * \brief XOffset
+     * X axis offset calculated to start from center of the map
+     */
     double XOffset;
+    /*!
+     * \brief YOffset
+     * Y axis offset calculated to start from center of the map
+     */
     double YOffset;
+    /*!
+     * \brief Tim
+     * Timer responsible for repainting path
+     */
     QTimer *Tim;
 
 private slots:

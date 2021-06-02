@@ -49,7 +49,15 @@ public:
     void UpdateData(DataForDataTable const Dat);
 
 private:
+    /*!
+     * \brief ui
+     * Stores information about Ui
+     */
     Ui::DataTable *ui;
+    /*!
+     * \brief Data
+     * Displayed data
+     */
     DataForDataTable *Data;
 };
 

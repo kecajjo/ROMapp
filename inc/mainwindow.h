@@ -73,13 +73,45 @@ private slots:
     void closeEvent(QCloseEvent *Event);
 
 private:
+    /*!
+     * \brief Ui
+     * Contains information about UI
+     */
     Ui::MainWindow *Ui;
+    /*!
+     * \brief TimTable
+     * Timer responsible for refreshing table with robot data
+     */
     QTimer *TimTable;
+    /*!
+     * \brief TimPlot
+     * Timer responsible for refreshing plots
+     */
     QTimer *TimPlot;
+    /*!
+     * \brief TimReadData
+     * Timer responsible for reading data sent by worker thread
+     */
     QTimer *TimReadData;
+    /*!
+     * \brief TimMap
+     * Timer responsible for refreashing map
+     */
     QTimer *TimMap;
+    /*!
+     * \brief DatPlot
+     * Data which is plotted
+     */
     DataForPlot *DatPlot;
+    /*!
+     * \brief CurrData
+     * Data which is shown in the table
+     */
     DataForDataTable CurrData;
+    /*!
+     * \brief ThreadComm
+     * Allows to communicate with worker thread
+     */
     Communication *ThreadComm;
 
 };

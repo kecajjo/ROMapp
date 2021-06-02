@@ -91,10 +91,25 @@ signals:
     void StartSig();
 
 private:
-public:
+    /*!
+     * \brief Comm
+     * Allows to communitate with GUI thread
+     */
     Communication *Comm;
+    /*!
+     * \brief ConvertedData
+     * Alows to transform raw data into DataForDataTable format and calculates position
+     */
     DataTransform *ConvertedData;
+    /*!
+     * \brief BT
+     * Takes care of bluetooth communication
+     */
     BTCommunication *BT;
+    /*!
+     * \brief Tim
+     * Checks for commands sent by GUI thread
+     */
     QTimer *Tim;
 };
 

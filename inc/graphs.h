@@ -123,7 +123,15 @@ private:
      */
     void GraphParamInitCompass();
 
+    /*!
+     * \brief ui
+     * Contains information about UI
+     */
     Ui::Graphs *ui;
+    /*!
+     * \brief DatPlot
+     * Ploted data
+     */
     DataForPlot *DatPlot;
 
 };

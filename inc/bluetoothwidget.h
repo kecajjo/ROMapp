@@ -91,11 +91,38 @@ private:
     void InitDevBox();
 
 private:
+    /*!
+     * \brief Ui
+     * Variable responsible for Ui from form file
+     */
     Ui::BluetoothWidget *Ui;
+    /*!
+     * \brief ThreadComm
+     * Allows for sending and receiving information from other thread
+     */
     Communication *ThreadComm;
+    /*!
+     * \brief TimDevBox
+     * Timer ersponsible for refreashing devices combo box
+     */
     QTimer *TimDevBox;
+    /*!
+     * \brief Loading
+     * Loading gif
+     */
     QMovie *Loading;
+    /*!
+     * \brief TimConnectionTimeout
+     * Timer checks if trying to connect was too long
+     *
+     * If device wont be connected before this timer runs out
+     * device is disconnected (program stops to try to connect)
+     */
     QTimer *TimConnectionTimeout;
+    /*!
+     * \brief TimConnectionCheck
+     * Polling to check if connection was successful
+     */
     QTimer *TimConnectionCheck;
 
 signals:

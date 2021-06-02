@@ -99,12 +99,40 @@ signals:
     void NewMessage(QByteArray*);
 
 private:
+    /*!
+     * \brief DiscoveryAgent
+     * Used to scan for devices
+     */
     QBluetoothDeviceDiscoveryAgent *DiscoveryAgent;
+    /*!
+     * \brief LocDev
+     * Information about local device
+     */
     QBluetoothLocalDevice *LocDev;
+    /*!
+     * \brief Devices
+     * List of devices found while scanning
+     */
     QList<QBluetoothDeviceInfo> *Devices;
+    /*!
+     * \brief Socket
+     * Socket to communicate with connected bluetooth device
+     */
     QBluetoothSocket *Socket;
+    /*!
+     * \brief ConnectedDeviceAddress
+     * Address of bluetooth device program is connected to
+     */
     QString ConnectedDeviceAddress;
+    /*!
+     * \brief Message
+     * Message received from bluetooth device
+     */
     QByteArray *Message;
+    /*!
+     * \brief StoredData
+     * Bytes received from bluetooth device, later filtered to find message in them
+     */
     QByteArray *StoredData;
 };
 

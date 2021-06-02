@@ -52,8 +52,23 @@ private:
     void CalcPosition();
 
 private:
+    /*!
+     * \brief CurrData
+     *  Current data, already transformed from raw values
+     */
     DataForDataTable CurrData;
+    /*!
+     * \brief PrevPos
+     * Previous robot position
+     * [0] - X axis
+     * [1] - Y axis
+     */
     double PrevPos[2];
+    /*!
+     * \brief PrevAngle
+     * Previous robot heading in degree
+     * 0 - facing north
+     */
     double PrevAngle;
 };
 

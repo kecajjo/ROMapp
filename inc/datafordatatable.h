@@ -8,10 +8,41 @@
  * Class containing all data used by DataTable
  */
 class DataForDataTable{
+    /*!
+     * \brief Position
+     * Robot position in cm
+     *
+     * [0] - X axis
+     * [1] - Y axis
+     */
     double Position[2];
+    /*!
+     * \brief PWM
+     * Robot PWM in %
+     *
+     * [0] - left wheel
+     * [1] - right wheel
+     */
     double PWM[2];
+    /*!
+     * \brief Encoder
+     * Motor speed in cm/s
+     *
+     * [0] - left wheel
+     * [1] - right wheel
+     */
     double Encoder[2];
+    /*!
+     * \brief Gyro
+     * Gyro speed in dps
+     */
     double Gyro;
+    /*!
+     * \brief Compass
+     * Compass heading in degrees
+     *
+     * 0 degree - facing north
+     */
     double Compass;
 public:
     /*!

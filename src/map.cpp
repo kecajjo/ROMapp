@@ -1,6 +1,5 @@
 #include "map.h"
 #include "ui_map.h"
-#include <QDebug>
 
 Map::Map(QWidget *parent) :
     QWidget(parent),

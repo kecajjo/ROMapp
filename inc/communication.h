@@ -11,20 +11,84 @@
  * allows communication between worker thread and main thread
  */
 class Communication{
+    /*!
+     * \brief Data
+     * Data sent from robot
+     */
     DataForDataTable Data;
+    /*!
+     * \brief NewData
+     * Tells if data has been updated since last reading
+     */
     bool NewData;
+    /*!
+     * \brief DataMutex
+     * Doesn't allow data to be accessed at the same time by different threads
+     */
     mutable std::mutex DataMutex;
 
+    /*!
+     * \brief Devices
+     * List of bluetooth devices that were found while scan
+     */
     QList<QBluetoothDeviceInfo> *Devices;
+    /*!
+     * \brief DeviceToConnect
+     * Stores information about device which is to be connected
+     */
     QBluetoothDeviceInfo *DeviceToConnect;
+    /*!
+     * \brief ConnectCommand
+     * True if GUI sent command to connect to bluetooth device stored under DeviceToConnect
+     * false otherwise
+     */
     bool ConnectCommand;
+    /*!
+     * \brief BluetoothConnected
+     * True if device is connected
+     * False otherwise
+     */
     bool BluetoothConnected;
+    /*!
+     * \brief ConnectionError
+     * True if error occured while connecting to bluetooth
+     * False otherwise
+     */
     bool ConnectionError;
+    /*!
+     * \brief BluetoothDisconnect
+     * True if GUI sent command to disconnect from bluetooth device
+     * false otherwise
+     */
     bool BluetoothDisconnect;
+    /*!
+     * \brief ScanCommand
+     * True if GUI sent command to scan for bluetooth devices
+     * False otherwise
+     */
     bool ScanCommand;
+    /*!
+     * \brief ScanComplete
+     * True if scan for bluetooth devices has finished
+     * False otherwise
+     */
     bool ScanComplete;
+    /*!
+     * \brief DevLstChanged
+     * True if list Devices has changed
+     * False otherwise
+     */
     bool DevLstChanged;
+    /*!
+     * \brief BluetoothMutex
+     * Doesn't allow bluetooth information to be accessed at the same time by different threads
+     */
     mutable std::mutex BluetoothMutex;
+
+    /*!
+     * \brief EndCommand
+     * Command for worker thread to finish
+     */
     bool EndCommand;
 
 public:

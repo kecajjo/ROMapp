@@ -1,6 +1,5 @@
 #include "worker.h"
 #include "unistd.h"
-#include <QDebug>
 
 Worker::Worker(QObject *parent) : QObject(parent){
     Comm = nullptr;
