@@ -2,7 +2,7 @@
 #define DATAFORDATATABLE_H
 
 #include <iostream>
-
+#include <QDebug>
 /*!
  * \brief The DataForDataTable class
  * Class containing all data used by DataTable
@@ -44,6 +44,14 @@ class DataForDataTable{
      * 0 degree - facing north
      */
     double Compass;
+    /*!
+     * \brief Heading
+     * Robot heading calculated using complementary filter
+     *
+     * 0 degree - facing north
+     */
+    double Heading;
+
 public:
     /*!
      * \brief DataForDataTable
@@ -137,6 +145,17 @@ public:
      * \return Compass value
      */
     double GetCompass() const {return Compass;}
+    /*!
+     * \brief SetHeading sets Heading value
+     * \param[in] val - new Heading value
+     */
+    void SetHeading(double const &Val){Heading = Val;}
+    /*!
+     * \brief GetHeading
+     * \return Heading value
+     */
+    double GetHeading() const {return Heading;}
+
 
     /*!
      * \brief operator =

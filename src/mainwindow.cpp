@@ -11,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
     DatPlot = new DataForPlot;
     Ui->GraphsW->PlotInit(DatPlot);
     DataForDataTable Data;
+    WindRoseImg.load(QDir().absoluteFilePath("../ROMapp/fig/wind_rose.png"));
     Ui->DataTableW->UpdateDisplay(Data);
+    Ui->WindRose->setAlignment(Qt::AlignCenter);
 
     TimTable = new QTimer;
     TimPlot = new QTimer;
@@ -57,6 +59,7 @@ void MainWindow::RefreshData(){
 
 void MainWindow::RefreshMap(){
     Ui->MapW->AddPoint(CurrData.GetPosition(0), CurrData.GetPosition(1));
+    RotateWindRose();
 }
 
 void MainWindow::OpenConnectionWindow(){
@@ -69,4 +72,12 @@ void MainWindow::OpenConnectionWindow(){
 void MainWindow::closeEvent(QCloseEvent *Event){
     ThreadComm->End();
     Event->accept();
+}
+
+void MainWindow::RotateWindRose(){
+    QTransform Rot;
+    QPixmap Tmp = WindRoseImg.scaled(Ui->WindRose->width(), Ui->WindRose->height());
+    Rot.rotate(-1*CurrData.GetHeading());
+    Tmp = Tmp.transformed(Rot);
+    Ui->WindRose->setPixmap(Tmp);
 }

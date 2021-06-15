@@ -3,6 +3,7 @@
 DataForDataTable::DataForDataTable(){
     Gyro = 0;
     Compass = 0;
+    Heading = 0;
     for(int i=0;i<2;i++){
         Position[i] = 0;
         PWM[i] = 0;
@@ -48,6 +49,7 @@ void DataForDataTable::operator = (DataForDataTable const Dat){
     }
     Gyro = Dat.GetGyro();
     Compass = Dat.GetCompass();
+    Heading = Dat.GetHeading();
 }
 
 std::istream& operator >> (std::istream& Stream, DataForDataTable &Data){

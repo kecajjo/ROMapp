@@ -7,6 +7,8 @@
 #include <QList>
 #include <QtBluetooth/QBluetoothDeviceInfo>
 #include <iostream>
+#include <QPixmap>
+#include <QTransform>
 #include "datatable.h"
 #include "dataforplot.h"
 #include "communication.h"
@@ -72,6 +74,8 @@ private slots:
      */
     void closeEvent(QCloseEvent *Event);
 
+    void RotateWindRose();
+
 private:
     /*!
      * \brief Ui
@@ -113,6 +117,8 @@ private:
      * Allows to communicate with worker thread
      */
     Communication *ThreadComm;
+
+    QPixmap WindRoseImg;
 
 };
 

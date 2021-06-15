@@ -18,6 +18,10 @@ Map::Map(QWidget *parent) :
     connect(Tim, &QTimer::timeout, this, &Map::CallRepaint);
     connect(ui->ResetButton, &QAbstractButton::clicked, this, &Map::ClearMap);
     Tim->start(10);
+    QTimer *TimClear = new QTimer;
+    connect(TimClear, &QTimer::timeout, this, &Map::ClearMap);
+    TimClear->setSingleShot(true);
+    TimClear->start(10);
 }
 
 Map::~Map()

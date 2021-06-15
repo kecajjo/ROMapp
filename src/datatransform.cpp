@@ -1,5 +1,5 @@
 #include "datatransform.h"
-
+#include <QDebug>
 DataTransform::DataTransform(){
 }
 
@@ -49,6 +49,11 @@ void DataTransform::CalculateData(QByteArray *RawData){
     CurrData.SetEncoder(EncoderA, EncoderB);
     CurrData.SetGyro(Gyro);
     CurrData.SetCompass(Compass);
+    double Heading = 0.97*(CurrData.GetHeading() + Gyro/20) + 0.03*Compass;//20samples per sec
+    //normalizing heading value
+    if(Heading > 180) Heading -= 180;
+    if(Heading < -180) Heading += 180;
+    CurrData.SetHeading(Heading);
     CalcPosition();
     PrevPos[0] = CurrData.GetPosition(0);
     PrevPos[1] = CurrData.GetPosition(1);
@@ -58,8 +63,8 @@ void DataTransform::CalculateData(QByteArray *RawData){
 void DataTransform::CalcPosition(){
     //0 degree angle facing north, Y axis facing north, X axis facing east
     //Position in centimeters
-    double X = sin(CurrData.GetCompass()*M_PI/180)*(CurrData.GetEncoder(0)+CurrData.GetEncoder(1))/20 + PrevPos[0];
-    double Y = cos(CurrData.GetCompass()*M_PI/180)*(CurrData.GetEncoder(0)+CurrData.GetEncoder(1))/20 + PrevPos[1];
+    double X = sin(CurrData.GetHeading()*M_PI/180)*(CurrData.GetEncoder(0)+CurrData.GetEncoder(1))/20 + PrevPos[0];
+    double Y = cos(CurrData.GetHeading()*M_PI/180)*(CurrData.GetEncoder(0)+CurrData.GetEncoder(1))/20 + PrevPos[1];
     CurrData.SetPosition(X, Y);
 }
 /*
