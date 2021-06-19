@@ -2,7 +2,10 @@
 #define DATATABLE_H
 
 #include <QFrame>
+#include <QDir>
+#include <QTimer>
 #include "datafordatatable.h"
+#include "qcustomplot.h"
 
 namespace Ui {
 class DataTable;
@@ -48,7 +51,12 @@ public:
      */
     void UpdateData(DataForDataTable const Dat);
 
+    void UpdateGraphics();
+
 private:
+
+    void InitPlots();
+
     /*!
      * \brief ui
      * Stores information about Ui
@@ -59,6 +67,14 @@ private:
      * Displayed data
      */
     DataForDataTable *Data;
+
+    QPixmap WindRoseImg;
+    QPixmap Arrow;
+    QCPBars *EncodersBarOverZero;
+    QCPBars *EncodersBarBelowZero;
+    QCPBars *PWMBar;
+
+    void RotateWindRose();
 };
 
 #endif // DATATABLE_H

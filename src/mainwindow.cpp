@@ -7,13 +7,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     Ui->setupUi(this);
     this->setWindowTitle("ROMapp");
+    QPixmap Background(QDir().absoluteFilePath("../ROMapp/fig/background.jpg"));
+    //Background = Background.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette Palette;
+    Palette.setBrush(QPalette::Background, Background);
+    this->setPalette(Palette);
 
     DatPlot = new DataForPlot;
     Ui->GraphsW->PlotInit(DatPlot);
     DataForDataTable Data;
-    WindRoseImg.load(QDir().absoluteFilePath("../ROMapp/fig/wind_rose.png"));
     Ui->DataTableW->UpdateDisplay(Data);
-    Ui->WindRose->setAlignment(Qt::AlignCenter);
 
     TimTable = new QTimer;
     TimPlot = new QTimer;
@@ -26,6 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(TimMap, &QTimer::timeout, this, &MainWindow::RefreshMap);
     connect(Ui->ActionConnection, &QAction::triggered, this, &MainWindow::OpenConnectionWindow);
     connect(Ui->ActionExit, &QAction::triggered, this, &MainWindow::close);
+    connect(TimMap, &QTimer::timeout, Ui->DataTableW, &DataTable::UpdateGraphics);
+    Ui->PositionX->setReadOnly(true);
+    Ui->PositionY->setReadOnly(true);
+    Ui->PositionX->setAlignment(Qt::AlignRight);
+    Ui->PositionY->setAlignment(Qt::AlignRight);
     TimTable->start(1000);//Timer event every 1sec
     TimPlot->start(50);//Timer event every 0.05sec
     TimReadData->start(50);//Timer event every 0.05sec
@@ -46,7 +54,9 @@ void MainWindow::SetThreadCommunication(Communication *Comm){
 }
 
 void MainWindow::RefreshDataTab(){
-    Ui->DataTableW->UpdateDisplay(CurrData);
+    Ui->DataTableW->UpdateDisplay();
+    Ui->PositionX->setText(QString::number(CurrData.GetPosition(0), 'f', 2));
+    Ui->PositionY->setText(QString::number(CurrData.GetPosition(1), 'f', 2));
 }
 
 void MainWindow::RefreshPlots(){
@@ -55,11 +65,11 @@ void MainWindow::RefreshPlots(){
 
 void MainWindow::RefreshData(){
     CurrData = ThreadComm->ReadData();
+    Ui->DataTableW->UpdateData(CurrData);
 }
 
 void MainWindow::RefreshMap(){
     Ui->MapW->AddPoint(CurrData.GetPosition(0), CurrData.GetPosition(1));
-    RotateWindRose();
 }
 
 void MainWindow::OpenConnectionWindow(){
@@ -72,12 +82,4 @@ void MainWindow::OpenConnectionWindow(){
 void MainWindow::closeEvent(QCloseEvent *Event){
     ThreadComm->End();
     Event->accept();
-}
-
-void MainWindow::RotateWindRose(){
-    QTransform Rot;
-    QPixmap Tmp = WindRoseImg.scaled(Ui->WindRose->width(), Ui->WindRose->height());
-    Rot.rotate(-1*CurrData.GetHeading());
-    Tmp = Tmp.transformed(Rot);
-    Ui->WindRose->setPixmap(Tmp);
 }

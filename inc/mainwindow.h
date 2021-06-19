@@ -74,8 +74,6 @@ private slots:
      */
     void closeEvent(QCloseEvent *Event);
 
-    void RotateWindRose();
-
 private:
     /*!
      * \brief Ui
@@ -117,8 +115,6 @@ private:
      * Allows to communicate with worker thread
      */
     Communication *ThreadComm;
-
-    QPixmap WindRoseImg;
 
 };
 

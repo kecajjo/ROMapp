@@ -51,8 +51,8 @@ void DataTransform::CalculateData(QByteArray *RawData){
     CurrData.SetCompass(Compass);
     double Heading = 0.97*(CurrData.GetHeading() + Gyro/20) + 0.03*Compass;//20samples per sec
     //normalizing heading value
-    if(Heading > 180) Heading -= 180;
-    if(Heading < -180) Heading += 180;
+    if(Heading > 180) Heading -= 360;
+    if(Heading < -180) Heading += 360;
     CurrData.SetHeading(Heading);
     CalcPosition();
     PrevPos[0] = CurrData.GetPosition(0);
