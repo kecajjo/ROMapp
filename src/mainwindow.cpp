@@ -12,6 +12,34 @@ MainWindow::MainWindow(QWidget *parent)
     QPalette Palette;
     Palette.setBrush(QPalette::Background, Background);
     this->setPalette(Palette);
+    //QPoint LeftTop = Ui->MapAxes->mapToGlobal(Ui->MapAxes->rect().topLeft());
+    //QPoint RightBottom = Ui->MapAxes->mapToGlobal(Ui->MapAxes->rect().bottomRight());
+    //QRect Cut(LeftTop.x(), LeftTop.y(),RightBottom.x()-LeftTop.x(),RightBottom.y()-LeftTop.y());
+    QRect Cut(40, 90, 521, 651);
+    Background = Background.copy(Cut);
+    Ui->MapAxes->setBackground(Background);
+    Ui->MapAxes->xAxis->setRange(-212.11,246.58);
+    Ui->MapAxes->yAxis->setRange(-288.05,310.966);
+    Ui->MapAxes->xAxis->grid()->setSubGridVisible(true);
+    Ui->MapAxes->xAxis->grid()->setPen(QPen(QColor(10,10,10,170),1,Qt::DotLine));
+    Ui->MapAxes->yAxis->grid()->setPen(QPen(QColor(10,10,10,170),1,Qt::DotLine));
+    Ui->MapAxes->xAxis->grid()->setSubGridPen(QPen(QColor(50,50,50,170),0.5,Qt::DotLine));
+    Ui->MapAxes->yAxis->grid()->setSubGridPen(QPen(QColor(50,50,50,170),0.5,Qt::DotLine));
+    Ui->MapAxes->yAxis->grid()->setSubGridVisible(true);
+
+    Ui->MapAxes->xAxis->setLabel("X [cm]");
+    Ui->MapAxes->yAxis->setLabel("Y [cm]");
+    Ui->MapAxes->plotLayout()->setMinimumMargins(QMargins(0,0,0,0));
+    Ui->MapAxes->plotLayout()->setMargins(QMargins(0,0,0,0));
+    Ui->MapAxes->yAxis->setPadding(0);
+    Ui->MapAxes->yAxis->setLabelPadding(0);
+    Ui->MapAxes->yAxis->setTickLabelPadding(1);
+    Ui->MapAxes->yAxis->setOffset(0);
+    Ui->MapAxes->yAxis2->setPadding(0);
+    Ui->MapAxes->yAxis2->setLabelPadding(0);
+    Ui->MapAxes->yAxis2->setTickLabelPadding(2);
+    Ui->MapAxes->xAxis->setLabelPadding(0);
+    Ui->MapAxes->xAxis->setTickLabelPadding(0);
 
     DatPlot = new DataForPlot;
     Ui->GraphsW->PlotInit(DatPlot);

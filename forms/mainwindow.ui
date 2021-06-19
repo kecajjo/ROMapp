@@ -33,17 +33,17 @@
      <widget class="Map" name="MapW" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>0</y>
-        <width>591</width>
+        <width>601</width>
         <height>731</height>
        </rect>
       </property>
       <widget class="QFrame" name="frame">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>10</y>
+         <x>100</x>
+         <y>70</y>
          <width>141</width>
          <height>61</height>
         </rect>
@@ -97,6 +97,84 @@
         </item>
        </layout>
       </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>0</y>
+         <width>31</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>N</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>570</x>
+         <y>340</y>
+         <width>31</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>E</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>690</y>
+         <width>31</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>S</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>340</y>
+         <width>31</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>W</string>
+       </property>
+      </widget>
      </widget>
      <widget class="DataTable" name="DataTableW">
       <property name="geometry">
@@ -114,6 +192,19 @@
        <enum>QFrame::Raised</enum>
       </property>
      </widget>
+     <widget class="QCustomPlot" name="MapAxes" native="true">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>521</width>
+        <height>651</height>
+       </rect>
+      </property>
+     </widget>
+     <zorder>DataTableW</zorder>
+     <zorder>MapAxes</zorder>
+     <zorder>MapW</zorder>
     </widget>
     <widget class="QWidget" name="PlotTab">
      <attribute name="title">
@@ -174,6 +265,12 @@
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>Map</class>
    <extends>QWidget</extends>

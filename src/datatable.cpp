@@ -186,7 +186,7 @@ void DataTable::InitPlots(){
 
 
     QPixmap Background(QDir().absoluteFilePath("../ROMapp/fig/background.jpg"));
-    QRect Cut(596,500,811,800);
+    QRect Cut(597,500,811,800);
     Background = Background.copy(Cut);
     ui->Graph->setBackground(Background);
 

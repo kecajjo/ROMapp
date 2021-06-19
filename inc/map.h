@@ -8,6 +8,7 @@
 #include <QPoint>
 #include <QPen>
 #include <QTimer>
+#include <QPalette>
 
 namespace Ui {
 class Map;

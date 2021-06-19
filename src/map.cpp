@@ -39,11 +39,11 @@ void Map::AddPoint(double X, double Y){
 
 void Map::paintEvent(QPaintEvent *){
     QPainter Painter(this);
-    QPen Pen(Qt::blue, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    QPen Pen((QColor(0,0,255,100)), 12, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
     Painter.setPen(Pen);
     Painter.drawPath(Path);
     Pen.setColor(Qt::red);
-    Pen.setWidth(20);
+    Pen.setWidth(18);
     Painter.setPen(Pen);
     Painter.drawPoint(LastPoint);
 }
