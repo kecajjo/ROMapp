@@ -40,16 +40,16 @@ void DataTransform::CalculateData(QByteArray *RawData){
 
     PWMA = (double)(RawToPWMA.Uint)/MAX_PWM*100;
     PWMB = (double)(RawToPWMB.Uint)/MAX_PWM*100;
-    EncoderA = double(RawToEncoderA.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION*2;//20samples per second value in cm/sec
-    EncoderB = double(RawToEncoderB.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION*2;//20samples per second value in cm/sec
-    Gyro = (double)(RawToGyro.I)*GYRO_RANGE/MAX_GYRO;
-    Compass = RawToCompass.F*180/M_PI;
+    EncoderA = double(RawToEncoderA.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION*2;//10samples per second value in cm/sec
+    EncoderB = double(RawToEncoderB.I)*M_PI*WHEEL_DIAMETER/ENCODER_PER_ROTATION*2;//10samples per second value in cm/sec
+    Gyro = -1*(double)(RawToGyro.I)*GYRO_RANGE/MAX_GYRO;
+    Compass = RawToCompass.F;//*180/M_PI;
 
     CurrData.SetPWM(PWMA, PWMB);
     CurrData.SetEncoder(EncoderA, EncoderB);
     CurrData.SetGyro(Gyro);
     CurrData.SetCompass(Compass);
-    double Heading = 0.97*(CurrData.GetHeading() + Gyro/20) + 0.03*Compass;//20samples per sec
+    double Heading = 0.97*(CurrData.GetHeading() + Gyro/10) + 0.03*Compass;//10samples per sec
     //normalizing heading value
     if(Heading > 180) Heading -= 360;
     if(Heading < -180) Heading += 360;

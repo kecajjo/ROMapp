@@ -5,12 +5,12 @@
 #include <QDebug>
 /*!
  * \brief The DataForDataTable class
- * Class containing all data used by DataTable
+ * Class containing all robot data
  */
 class DataForDataTable{
     /*!
      * \brief Position
-     * Robot position in cm
+     * Robot position in cm.
      *
      * [0] - X axis
      * [1] - Y axis
@@ -18,7 +18,7 @@ class DataForDataTable{
     double Position[2];
     /*!
      * \brief PWM
-     * Robot PWM in %
+     * Robot PWM in %.
      *
      * [0] - left wheel
      * [1] - right wheel
@@ -26,7 +26,7 @@ class DataForDataTable{
     double PWM[2];
     /*!
      * \brief Encoder
-     * Motor speed in cm/s
+     * Motor speed in cm/s.
      *
      * [0] - left wheel
      * [1] - right wheel
@@ -39,14 +39,14 @@ class DataForDataTable{
     double Gyro;
     /*!
      * \brief Compass
-     * Compass heading in degrees
+     * Compass heading in degrees.
      *
      * 0 degree - facing north
      */
     double Compass;
     /*!
      * \brief Heading
-     * Robot heading calculated using complementary filter
+     * Robot heading calculated using complementary filter.
      *
      * 0 degree - facing north
      */
@@ -55,7 +55,7 @@ class DataForDataTable{
 public:
     /*!
      * \brief DataForDataTable
-     * Contructor, initializes all class valiables with 0;
+     * Contructor, initializes all class valiables with 0.
      */
     DataForDataTable();
     //~DataForDataTable();
@@ -160,7 +160,7 @@ public:
     /*!
      * \brief operator =
      * \param[in] Dat - value we assign
-     * Overloaded operator =, assigns Dat to this datatable
+     * Overloaded operator =, assigns Dat to this datatable.
      */
     void operator = (DataForDataTable const Dat);
 };
@@ -173,7 +173,7 @@ public:
  * \return reference to the stream from which we read data
  *
  * NOTE: after reading DataForDataTable it is necesarry to use CalcPosition function
- * to update Positions value
+ * to update Positions value.
 */
 std::istream& operator >> (std::istream& Stream, DataForDataTable &Data);
 

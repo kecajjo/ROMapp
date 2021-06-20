@@ -9,7 +9,7 @@
 
 /*!
  * \brief The Worker class
- * Class designed to be executed in worker thread
+ * Class designed to be executed in the worker thread.
  */
 class Worker : public QObject{
     Q_OBJECT
@@ -27,88 +27,88 @@ public:
     void SetCommunication(Communication *Comm){this->Comm = Comm;}
     /*!
      * \brief SendStartSig
-     * Emits StartSig
+     * Emits StartSig.
      */
     void SendStartSig(){emit StartSig();}
 
 public slots:
     /*!
      * \brief Start
-     * Initializes signal-slot connections and event checking timer
+     * Initializes signal-slot connections and event checking timer.
      */
     void Start();
 
 private slots:
     /*!
      * \brief CheckEvents
-     * Process events thats happend since last CheckEvents
+     * Process events thats happend since the last CheckEvents.
      */
     void CheckEvents();
     /*!
      * \brief ScanFinished
      * \param[in] DevLst - list of found devices
-     * Tells main thread that bluetooth devices scan has finished
+     * Tells the main thread that bluetooth devices scan has finished.
      */
     void ScanFinished(QList<QBluetoothDeviceInfo>* DevLst){Comm->ScanFinished(DevLst);}
     /*!
      * \brief DeviceFound
-     * Tells main thread that new device has been found
+     * Tells the main thread that new device has been found.
      */
     void DeviceFound(){Comm->NewDevice();}
     /*!
      * \brief Connected
-     *  Tells main thread that connection was successfull
+     *  Tells the main thread that connection was successfull.
      */
     void Connected(){Comm->Connected();}
     /*!
      * \brief Disconnected
-     * Tells main thread that connection with bluetooth device has ended
+     * Tells the main thread that connection with bluetooth device has ended.
      */
     void Disconnected(){Comm->Disconnected();}
     /*!
      * \brief ConnectionError
-     *  Tells main thread there was connection error
+     *  Tells the main thread there was connection error.
      */
     void ConnectionError();
     /*!
      * \brief NewDevLst
      * \param[in] Lst - devices list to be available to main thread
-     * Updates devices list available to main thread
+     * Updates devices list available to the main thread.
      */
     void NewDevLst(QList<QBluetoothDeviceInfo> *Lst);
     /*!
      * \brief ReceiveMessage
      * \param[in] RawData - data received from bluetooth
-     * Converts data received from bluetooth and sends it to main thread
+     * Converts data received from the bluetooth device and sends it to the main thread.
      */
     void ReceiveMessage(QByteArray *RawData);
 
 signals:
     /*!
      * \brief StartSig
-     * Emitting this signal start worker thread event loop
+     * Emitting this signal start the worker thread event loop.
      */
     void StartSig();
 
 private:
     /*!
      * \brief Comm
-     * Allows to communitate with GUI thread
+     * Allows to communitate with the main thread.
      */
     Communication *Comm;
     /*!
      * \brief ConvertedData
-     * Alows to transform raw data into DataForDataTable format and calculates position
+     * Alows to transform the raw data into DataForDataTable format and calculates the robot's position.
      */
     DataTransform *ConvertedData;
     /*!
      * \brief BT
-     * Takes care of bluetooth communication
+     * Takes care of the bluetooth communication.
      */
     BTCommunication *BT;
     /*!
      * \brief Tim
-     * Checks for commands sent by GUI thread
+     * Checks for commands sent by the main thread.
      */
     QTimer *Tim;
 };

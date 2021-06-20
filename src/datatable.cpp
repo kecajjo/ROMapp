@@ -71,7 +71,7 @@ void DataTable::UpdateDisplay(){
             EncoderDataBelowZero[i] = 0;
             EncoderDataOverZero[i] = Data->GetEncoder(i);
         } else{
-            EncoderDataBelowZero[i] = Data->GetEncoder(i);
+            EncoderDataBelowZero[i] = -1*Data->GetEncoder(i);
             EncoderDataOverZero[i] = 0;
         }
         PWMData[i] = Data->GetPWM(i);

@@ -12,7 +12,7 @@ class Graphs;
 
 /*!
  * \brief The Graphs class
- * Class responsible for graphs widget
+ * Class responsible for the graphs widget.
  */
 class Graphs : public QWidget
 {
@@ -29,29 +29,29 @@ public slots:
     /*!
      * \brief PlotInit
      * \param[in] DatPlot - data which will store data to be plotted
-     * Initializes graphs and displays them, initializes time axis data
+     * Initializes graphs and displays them, initializes the time axis data.
      */
     void PlotInit(DataForPlot *DatPlot);
     /*!
      * \brief SetDataToPlot
      * \param[in] DatPlot - data used to plot graphs
-     * Sets which vector from DataForPlot will be plotted on which graph
+     * Sets which vector from DataForPlot will be plotted on which graph.
      *
-     * NOTE: this function needs to be used before refreshing display if data has changed
+     * NOTE: this function needs to be used before refreshing display if the data has changed.
      */
     void SetDataToPlot(DataForPlot *DatPlot);
     /*!
      * \brief RefreshPlots
      * \param[in] CurrData - data to be added to graphs
-     * Replots all graphs basing on changed data
+     * Replots all graphs basing on the changed data.
      */
     void RefreshPlots(DataForDataTable CurrData);
     /*!
      * \brief RefreshPlotDisplay
-     * Displays graphs basing on current data
+     * Displays graphs basing on the current data.
      *
-     * NOTE: data needs to be assigned first
-     * if there is new data, use SetDataToPlot() function first
+     * NOTE: data needs to be assigned first.
+     * If there is new data, use SetDataToPlot() function first.
      */
     void RefreshPlotDisplay();
 
@@ -59,23 +59,23 @@ private:
     /*!
      * \brief RefreshPlotData
      * \param[in] CurrData - new data to be added to graphs
-     * Shifts all plotted data by 1 sample left
+     * Shifts all plotted data by 1 sample left.
      *
-     * Shifts data to be plotted left by removing first sample
-     * adds new sample as last element in QVector
+     * Shifts data to be plotted left by removing first sample,
+     * adds new sample as last element in QVector.
      */
     void RefreshPlotData(DataForDataTable CurrData);
     /*!
      * \brief GraphParamInit
-     * Initializes graphs parameters such as titles, axes, legends
+     * Initializes graphs parameters such as titles, axes, legends.
      *
      * Initializes graphs basing on parameters set in graph param init functions
-     * such as GraphParamInitPWM
+     * such as GraphParamInitPWM.
      */
     void GraphParamInit();
     /*!
      * \brief AddGraphs
-     * adds number of plots(data sets) to each graph
+     * Adds number of plots(data sets) to each graph.
      */
     void AddGraphs();
     /*!
@@ -125,12 +125,12 @@ private:
 
     /*!
      * \brief ui
-     * Contains information about UI
+     * Contains information about the UI.
      */
     Ui::Graphs *ui;
     /*!
      * \brief DatPlot
-     * Ploted data
+     * Ploted data.
      */
     DataForPlot *DatPlot;
 

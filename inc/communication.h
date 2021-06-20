@@ -8,93 +8,93 @@
 
 /*!
  * \brief The Communication class
- * allows communication between worker thread and main thread
+ * allows for communication between the worker thread and the main thread.
  */
 class Communication{
     /*!
      * \brief Data
-     * Data sent from robot
+     * Data sent from the robot.
      */
     DataForDataTable Data;
     /*!
      * \brief NewData
-     * Tells if data has been updated since last reading
+     * Tells if the data has been updated since last reading.
      */
     bool NewData;
     /*!
      * \brief DataMutex
-     * Doesn't allow data to be accessed at the same time by different threads
+     * Doesn't allow data to be accessed at the same time by different threads.
      */
     mutable std::mutex DataMutex;
 
     /*!
      * \brief Devices
-     * List of bluetooth devices that were found while scan
+     * List of bluetooth devices that were found while scanning for them.
      */
     QList<QBluetoothDeviceInfo> *Devices;
     /*!
      * \brief DeviceToConnect
-     * Stores information about device which is to be connected
+     * Stores information about the device which is to be connected.
      */
     QBluetoothDeviceInfo *DeviceToConnect;
     /*!
      * \brief ConnectCommand
-     * True if GUI sent command to connect to bluetooth device stored under DeviceToConnect
-     * false otherwise
+     * True if GUI sent command to connect to bluetooth device stored under DeviceToConnect,
+     * false otherwise.
      */
     bool ConnectCommand;
     /*!
      * \brief BluetoothConnected
-     * True if device is connected
-     * False otherwise
+     * True if device is connected,
+     * false otherwise.
      */
     bool BluetoothConnected;
     /*!
      * \brief ConnectionError
-     * True if error occured while connecting to bluetooth
-     * False otherwise
+     * True if error occured while connecting to the bluetooth device,
+     * false otherwise.
      */
     bool ConnectionError;
     /*!
      * \brief BluetoothDisconnect
-     * True if GUI sent command to disconnect from bluetooth device
+     * True if GUI sent command to disconnect from the bluetooth device,
      * false otherwise
      */
     bool BluetoothDisconnect;
     /*!
      * \brief ScanCommand
-     * True if GUI sent command to scan for bluetooth devices
-     * False otherwise
+     * True if GUI sent command to scan for bluetooth devices,
+     * false otherwise.
      */
     bool ScanCommand;
     /*!
      * \brief ScanComplete
-     * True if scan for bluetooth devices has finished
-     * False otherwise
+     * True if scan for bluetooth devices has finished,
+     * false otherwise.
      */
     bool ScanComplete;
     /*!
      * \brief DevLstChanged
-     * True if list Devices has changed
-     * False otherwise
+     * True if the list ''Devices'' has changed,
+     * false otherwise.
      */
     bool DevLstChanged;
     /*!
      * \brief BluetoothMutex
-     * Doesn't allow bluetooth information to be accessed at the same time by different threads
+     * Doesn't allow bluetooth information to be accessed at the same time by different threads.
      */
     mutable std::mutex BluetoothMutex;
 
     /*!
      * \brief EndCommand
-     * Command for worker thread to finish
+     * Command for the worker thread to finish.
      */
     bool EndCommand;
 
 public:
     /*!
      * \brief Communication
-     * Default class constructor
+     * Default class constructor.
      */
     Communication();
     ~Communication();
@@ -118,23 +118,23 @@ public:
     */
     /*!
      * \brief ConnectToDeviceCommand
-     * \param[in] LstIdx - list index of device to connect to
-     * Sets command to connect to device, sets which device to connect to
+     * \param[in] LstIdx - list index of the device to connect to
+     * Sets command to connect to the device, sets which device to connect to.
      */
     void ConnectToDeviceCommand(int LstIdx);
     /*!
      * \brief ScanForDevicesCommand
-     * Sets scan command
+     * Sets the scan command, information set buy the main thread, later received by the worker thread.
      */
     void ScanForDevicesCommand();
     /*!
      * \brief DisconnectCommand
-     * Sets disconnect command
+     * Sets disconnect command, information set buy the main thread, later received by the worker thread.
      */
     void DisconnectCommand(){BluetoothDisconnect = true; ConnectionError=false;}
     /*!
      * \brief ClearDevLstChanged
-     * Changes devices list status from changed to unchanged
+     * Changes devices list status from changed to unchanged.
      */
     void ClearDevLstChanged(){DevLstChanged = false;}
 
@@ -178,43 +178,43 @@ public:
     /*!
      * \brief NewDevLst
      * \param[in] Lst - list to be assigned to devices list
-     * Assigns devices list to Lst
+     * Assigns devices list to the Lst.
      */
     void NewDevLst(QList<QBluetoothDeviceInfo>* Lst){Devices = Lst;}
     /*!
      * \brief NewDevice
-     * Changes devices list status from unchanged to changed
+     * Changes the devices list status from unchanged to changed.
      */
     void NewDevice(){DevLstChanged = true;}
     /*!
      * \brief ScanFinished
      * \param[in] DevLst - list containing found devices
-     * Assigns devices list to DevLst and changes status of flags;
+     * Assigns devices list to the DevLst and changes status of flags.
      */
     void ScanFinished(QList<QBluetoothDeviceInfo> *DevLst);
     /*!
      * \brief Disconnected
-     * Changes flags status to disconected
+     * Changes flags status to disconected.
      */
     void Disconnected(){BluetoothConnected = false; BluetoothDisconnect = false;}
     /*!
      * \brief Connected
-     * Changes flags status to connected
+     * Changes flags status to connected.
      */
     void Connected(){ConnectionError = false; BluetoothConnected = true;}
     /*!
      * \brief ConnectionFailed
-     * Sets connection failed flag
+     * Sets connection failed flag.
      */
     void ConnectionFailed(){ConnectionError = true;}
     /*!
      * \brief ClearScanCommand
-     * Resets scan command
+     * Resets scan command.
      */
     void ClearScanCommand(){ScanCommand = false; ScanComplete = false;}
     /*!
      * \brief ClearDisconnectCommand
-     * Resets disconnect command
+     * Resets disconnect command.
      */
     void ClearDisconnectCommand(){BluetoothDisconnect = false;}
 
@@ -245,19 +245,19 @@ public:
 
     /*!
      * \brief ClearConnectionError
-     * Resets connection error flag
+     * Resets connection error flag.
      */
     void ClearConnectionError(){ConnectionError = false;}
 
     /*!
      * \brief End
-     * Sets EndCommand to true
+     * Sets EndCommand to true.
      */
     void End(){EndCommand = true;}
     /*!
      * \brief IsEndCommand
      * \return true if EndCommand is set, false otherwise
-     * Allows to check if end command was sent
+     * Allows to check if end command was sent.
      */
     bool IsEndCommand() const {return EndCommand;}
 };

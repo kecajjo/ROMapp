@@ -17,14 +17,14 @@
 
 /*!
  * \brief The DataTransform class
- * Helps in ttransforming data from raw bytes to DataForDataTable format
- * Calculates position
+ * Helps in transforming data from raw bytes to DataForDataTable format.
+ * Calculates the robot position.
  */
 class DataTransform{
 public:
     /*!
      * \brief DataTransform
-     * Default constructor
+     * Default constructor.
      */
     DataTransform();
 
@@ -36,9 +36,9 @@ public:
     /*!
      * \brief CalculateData
      * \param[in] RawData - raw data to be transformed
-     * Calculates position and transforms raw data to DataForDataTable format
+     * Calculates position and transforms raw data to DataForDataTable format.
      *
-     * NOTE: if RawData size isn't 14, returns without any calculations
+     * NOTE: if RawData size isn't 14, returns without any calculations.
      */
     void CalculateData(QByteArray *RawData);
 
@@ -46,27 +46,27 @@ private:
     /*!
      * \brief CalcPosition
      *
-     * Calculates position basing on sensors values and previous position and angle
-     * Updates current Position
+     * Calculates position basing on sensors values and previous position and angle.
+     * Updates current Position.
      */
     void CalcPosition();
 
 private:
     /*!
      * \brief CurrData
-     *  Current data, already transformed from raw values
+     *  Current data, already transformed from the raw values.
      */
     DataForDataTable CurrData;
     /*!
      * \brief PrevPos
-     * Previous robot position
+     * Previous robot position in cm.
      * [0] - X axis
      * [1] - Y axis
      */
     double PrevPos[2];
     /*!
      * \brief PrevAngle
-     * Previous robot heading in degree
+     * Previous robot heading in degree.
      * 0 - facing north
      */
     double PrevAngle;
