@@ -1,7 +1,6 @@
 # ROMapp
 Project was designed to visualize position and sensor values of the floor cleaning robot developed in project called "ROMAN". Hopefully it can be used with other mobile robots too.
 
-It's not finished yet though.
 
 ## Author:
 Jacek Multan
@@ -25,7 +24,7 @@ Little-endian byte order
 * 2bytes \<int16_t> speed and direction of left motor
 * 2bytes \<int16_t> gyroscope data
 * 4bytes \<float> compass data
-* CRC (not implemented yet)
+* CRC
 
 ## License
 [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html)
